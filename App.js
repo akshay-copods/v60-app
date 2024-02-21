@@ -5,6 +5,9 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
+import { PaperProvider } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +23,7 @@ function HomeScreen() {
   return (
     <View className="flex items-center justify-center">
       <Text className="text-red-400">Home Screen</Text>
+      <ActivityIndicator animating={true} color={MD2Colors.red800} />
     </View>
   );
 }
@@ -36,7 +40,9 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <PaperProvider>
+        <MyTabs />
+      </PaperProvider>
     </NavigationContainer>
   );
 }
