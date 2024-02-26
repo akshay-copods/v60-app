@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import { PaperProvider } from 'react-native-paper';
 
@@ -38,6 +39,15 @@ function DetailsScreen() {
 const Stack = createNativeStackNavigator();
 
 function App() {
+  React.useEffect(() => {
+    async function changeScreenOrientation() {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE
+      );
+    }
+    changeScreenOrientation();
+  }, []);
+
   return (
     <NavigationContainer>
       <PaperProvider>
