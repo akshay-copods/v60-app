@@ -39,7 +39,7 @@ function DetailsScreen() {
 const Stack = createNativeStackNavigator();
 
 function App() {
-  React.useEffect(() => {
+  useEffect(() => {
     async function changeScreenOrientation() {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE
