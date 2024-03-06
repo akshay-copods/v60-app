@@ -10,6 +10,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { PaperProvider } from 'react-native-paper';
 import { LoginScreen } from './screens/LoginScreen';
 import { RegisterScreen } from './screens/RegisterScreen';
+import { DetailsScreen } from './screens/DetailsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,17 +32,6 @@ function HomeScreen() {
     </View>
   );
 }
-function DetailsScreen() {
-  useEffect(() => {
-    console.log('Details Screen');
-  }, []);
-  return (
-    <View className="flex items-center justify-center">
-      <Text className="text-red-400">Details Screen</Text>
-    </View>
-  );
-}
-
 function App() {
   useEffect(() => {
     async function changeScreenOrientation() {
