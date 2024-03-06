@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { ModuleCard } from '../components/Card';
@@ -14,33 +14,36 @@ export function DetailsScreen() {
     console.log('Details Screen');
     //fetch data from firestrore
     async function fetchData() {
-      const docRef = doc(db, 'modules', 'YbFhN4vOkkiHYpZaa3V3');
+      const docRef = doc(db, 'modules', '65bBSCInH7Ls7wMYZsTM');
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data()?.modules);
         setModules(docSnap.data()?.modules);
         setLoading(false);
       } else {
-        // docSnap.data() will be undefined in this case
         console.log('No such document!');
       }
     }
     fetchData();
   }, []);
   return (
-    <View className="flex items-center bg-red-200 h-full">
+    <View className="flex flex-col gap-3 items-center bg-red-200 h-full overflow-scroll">
       <Text className="text-red-400">Details Screen</Text>
-      <View className="flex flex-col gap-12 flex-1">
+      <View className="flex flex-col gap-2 flex-1 max-w-4xl">
         {loading ? (
           <ActivityIndicator animating={true} color={MD2Colors.red800} />
         ) : (
-          modules.map((module, i) => (
-            <ModuleCard
-              key={i}
-              title={module.moduleName}
-              shortDescription={module.shortModuleDescription}
-            />
-          ))
+          <FlatList
+            data={modules}
+            renderItem={({ item }) => (
+              <ModuleCard
+                key={item.id}
+                title={item.moduleName}
+                shortDescription={item.shortModuleDescription}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
         )}
       </View>
     </View>
