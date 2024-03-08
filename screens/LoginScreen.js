@@ -56,36 +56,46 @@ function LoginScreen() {
   }
 
   return (
-    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto">
+    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto border">
       {loading ? (
         <ActivityIndicator animating={true} color={MD2Colors.purple300} />
       ) : (
         <>
           <Text className="text-2xl font-bold self-start">Sign In</Text>
-          <TextInput
-            placeholder="Enter Employee ID"
-            value={details.username}
-            onChangeText={(text) => setDetails({ ...details, username: text })}
-            className="w-full bg-transparent h-9 text-sm"
-            mode="outlined"
-            label="Employee ID"
-          />
-          <TextInput
-            value={details.password}
-            onChangeText={(text) => setDetails({ ...details, password: text })}
-            placeholder="Enter Password"
-            className="w-full bg-transparent h-9 text-sm"
-            mode="outlined"
-            label="Password"
-            secureTextEntry={password}
-            right={
-              <TextInput.Icon
-                icon="eye"
-                style={{ marginTop: 14 }}
-                onPress={() => showPassword(!password)}
-              />
-            }
-          />
+          <View className="gap-2 w-full border">
+            <Text className="text-[10px] text-[#5F6A80]">Employee ID</Text>
+            <TextInput
+              placeholder="Enter Employee ID"
+              value={details.username}
+              onChangeText={(text) =>
+                setDetails({ ...details, username: text })
+              }
+              className="w-full bg-transparent h-9 text-xs"
+              textColor="#5F6A80"
+              mode="outlined"
+            />
+          </View>
+          <View className="gap-2 w-full border">
+            <Text className="text-[10px] text-[#5F6A80]">Password</Text>
+            <TextInput
+              value={details.password}
+              onChangeText={(text) =>
+                setDetails({ ...details, password: text })
+              }
+              placeholder="Enter Password"
+              className="w-full bg-transparent h-9 text-xs"
+              textColor="#5F6A80"
+              mode="outlined"
+              secureTextEntry={password}
+              right={
+                <TextInput.Icon
+                  icon="eye"
+                  style={{ marginTop: 14 }}
+                  onPress={() => showPassword(!password)}
+                />
+              }
+            />
+          </View>
           <View className="flex w-full">
             <TouchableOpacity
               onPress={() => loginUser(details)}

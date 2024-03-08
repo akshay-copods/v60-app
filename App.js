@@ -39,7 +39,7 @@ function App() {
   return (
     <NavigationContainer>
       <PaperProvider>
-        <SafeAreaView className="flex-1 bg-[#FBF6FF] flex justify-center">
+        <SafeAreaView className="flex-1 bg-[#FBF6FF] justify-center">
           <StatusBar
             barStyle="light-content"
             hidden={true}
