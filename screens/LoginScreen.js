@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors, TextInput } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 
-export function LoginScreen() {
+function LoginScreen() {
   const [details, setDetails] = useState({
     username: '',
     password: '',
@@ -56,7 +56,7 @@ export function LoginScreen() {
   }
 
   return (
-    <View className="flex items-center justify-center h-full gap-4 w-64">
+    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto">
       {loading ? (
         <ActivityIndicator animating={true} color={MD2Colors.purple300} />
       ) : (
@@ -66,7 +66,7 @@ export function LoginScreen() {
             placeholder="Enter Employee ID"
             value={details.username}
             onChangeText={(text) => setDetails({ ...details, username: text })}
-            className="w-full bg-transparent h-10 text-sm"
+            className="w-full bg-transparent h-9 text-sm"
             mode="outlined"
             label="Employee ID"
           />
@@ -74,7 +74,7 @@ export function LoginScreen() {
             value={details.password}
             onChangeText={(text) => setDetails({ ...details, password: text })}
             placeholder="Enter Password"
-            className="w-full bg-transparent h-10 text-sm"
+            className="w-full bg-transparent h-9 text-sm"
             mode="outlined"
             label="Password"
             secureTextEntry={password}
@@ -89,7 +89,7 @@ export function LoginScreen() {
           <View className="flex w-full">
             <TouchableOpacity
               onPress={() => loginUser(details)}
-              className="bg-[#9E53DA] py-2 px-4 rounded"
+              className="bg-[#9E53DA] py-2 px-4 h-9 rounded"
             >
               <Text className="text-white self-center">Sign In</Text>
             </TouchableOpacity>
@@ -99,3 +99,5 @@ export function LoginScreen() {
     </View>
   );
 }
+
+export default LoginScreen;
