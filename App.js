@@ -9,7 +9,8 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { DetailsScreen } from './screens/DetailsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,24 +40,30 @@ function App() {
   return (
     <NavigationContainer>
       <PaperProvider>
-        <SafeAreaView className="flex-1 bg-[#FBF6FF] justify-center">
-          <StatusBar
-            barStyle="light-content"
-            hidden={true}
-            backgroundColor="#FBF6FF"
-            translucent={false}
-          />
+        <StatusBar
+          barStyle="light-content"
+          hidden={false}
+          backgroundColor="#eee"
+          translucent={false}
+        />
 
-          <Tab.Navigator tabBar={() => null} initialRouteName="Login">
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="Login"
-              component={LoginScreen}
-            />
-            {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
-          </Tab.Navigator>
-          <Toast />
-        </SafeAreaView>
+        <Tab.Navigator
+          sceneContainerStyle={{ backgroundColor: '#fbf6ff' }}
+          tabBar={() => null}
+          initialRouteName="Details"
+        >
+          <Tab.Screen
+            options={{ headerShown: false }}
+            name="Login"
+            component={LoginScreen}
+          />
+          <Tab.Screen
+            options={{ headerShown: false }}
+            name="Details"
+            component={DetailsScreen}
+          />
+        </Tab.Navigator>
+        <Toast />
       </PaperProvider>
     </NavigationContainer>
   );
