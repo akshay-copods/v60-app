@@ -50,7 +50,7 @@ function App() {
         <Tab.Navigator
           sceneContainerStyle={{ backgroundColor: '#fbf6ff' }}
           tabBar={() => null}
-          initialRouteName="Details"
+          initialRouteName="Login"
         >
           <Tab.Screen
             options={{ headerShown: false }}

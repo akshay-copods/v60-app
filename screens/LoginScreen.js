@@ -56,13 +56,13 @@ function LoginScreen() {
   }
 
   return (
-    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto border">
+    <View className="flex items-center justify-center h-full w-64 m-auto">
       {loading ? (
         <ActivityIndicator animating={true} color={MD2Colors.purple300} />
       ) : (
         <>
           <Text className="text-2xl font-bold self-start">Sign In</Text>
-          <View className="gap-2 w-full border">
+          <View className="w-full mt-5">
             <Text className="text-[10px] text-[#5F6A80]">Employee ID</Text>
             <TextInput
               placeholder="Enter Employee ID"
@@ -70,12 +70,12 @@ function LoginScreen() {
               onChangeText={(text) =>
                 setDetails({ ...details, username: text })
               }
-              className="w-full bg-transparent h-9 text-xs"
+              className="w-full bg-transparent h-9 text-xs mt-1"
               textColor="#5F6A80"
               mode="outlined"
             />
           </View>
-          <View className="gap-2 w-full border">
+          <View className="w-full mt-5">
             <Text className="text-[10px] text-[#5F6A80]">Password</Text>
             <TextInput
               value={details.password}
@@ -83,20 +83,21 @@ function LoginScreen() {
                 setDetails({ ...details, password: text })
               }
               placeholder="Enter Password"
-              className="w-full bg-transparent h-9 text-xs"
+              className="w-full bg-transparent h-9 text-xs mt-1"
               textColor="#5F6A80"
               mode="outlined"
               secureTextEntry={password}
               right={
                 <TextInput.Icon
                   icon="eye"
-                  style={{ marginTop: 14 }}
+                  style={{ marginTop: 5, marginLeft: 20 }}
                   onPress={() => showPassword(!password)}
+                  size={20}
                 />
               }
             />
           </View>
-          <View className="flex w-full">
+          <View className="flex w-full mt-5">
             <TouchableOpacity
               onPress={() => loginUser(details)}
               className="bg-[#9E53DA] py-2 px-4 h-9 rounded"
