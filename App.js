@@ -21,7 +21,10 @@ const Stack = createStackNavigator();
 
 function LoginStack() {
   return (
-    <Stack.Navigator initialRouteName="login">
+    <Stack.Navigator
+      initialRouteName="login"
+      screenOptions={{ cardStyle: { backgroundColor: '#fbf6ff' } }}
+    >
       <Stack.Screen
         name="login"
         options={{ headerShown: false }}
@@ -59,7 +62,7 @@ function App() {
         />
 
         {!isSignedIn ? (
-          LoginStack()
+          <LoginStack />
         ) : (
           <Tab.Navigator
             sceneContainerStyle={{ backgroundColor: '#fbf6ff' }}
