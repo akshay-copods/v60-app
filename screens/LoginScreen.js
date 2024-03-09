@@ -6,15 +6,17 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors, TextInput } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import { useAppStore } from '../store';
 
-function LoginScreen() {
+export function LoginScreen({ f }) {
   const [details, setDetails] = useState({
     username: '',
     password: '',
   });
+  console.log(f);
   const [password, showPassword] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const signIn = useAppStore((state) => state.signIn);
   const navigation = useNavigation();
 
   async function loginUser(details) {
@@ -44,7 +46,8 @@ function LoginScreen() {
       });
 
       setLoading(false);
-      navigation.navigate('Details');
+      signIn();
+      navigation.navigate('details');
     } else {
       setLoading(false);
       Toast.show({
@@ -105,10 +108,18 @@ function LoginScreen() {
               <Text className="text-white self-center">Sign In</Text>
             </TouchableOpacity>
           </View>
+          <View className="flex w-full">
+            <TouchableOpacity
+              onPress={() => navigation.navigate('register')}
+              className="bg-[#F1F1F1] py-2 px-4 h-9 rounded"
+            >
+              <Text className="text-[#5F6A80] self-center">
+                Create an account
+              </Text>
+            </TouchableOpacity>
+          </View>
         </>
       )}
     </View>
   );
 }
-
-export default LoginScreen;
