@@ -18,6 +18,7 @@ import { ChatScreen } from './screens/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName="login">
@@ -34,18 +35,6 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
-function MyTabs() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="details">
-        {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-        {/* <Tab.Screen name="Details" component={DetailsScreen} /> */}
-        <Tab.Screen name="Login" component={<LoginScreen f={'f'} />} />
-        {/* <Tab.Screen name="Register" component={RegisterScreen} /> */}
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
 
 function App() {
   useEffect(() => {
@@ -56,8 +45,9 @@ function App() {
     }
     changeScreenOrientation();
   }, []);
+
   const isSignedIn = useAppStore((state) => state.isSignedIn);
-  console.log(isSignedIn);
+
   return (
     <NavigationContainer>
       <PaperProvider>

@@ -108,16 +108,14 @@ export function LoginScreen({ f }) {
               <Text className="text-white self-center">Sign In</Text>
             </TouchableOpacity>
           </View>
-          <View className="flex w-full">
-            <TouchableOpacity
-              onPress={() => navigation.navigate('register')}
-              className="bg-[#F1F1F1] py-2 px-4 h-9 rounded"
-            >
-              <Text className="text-[#5F6A80] self-center">
-                Create an account
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('register')}
+            className="bg-[#F1F1F1] py-2 px-4 h-9 rounded"
+          >
+            <Text className="text-[#5F6A80] self-center">
+              Create an account
+            </Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
