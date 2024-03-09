@@ -68,7 +68,7 @@ function App() {
           translucent={false}
         />
 
-        {false ? (
+        {!isSignedIn ? (
           LoginStack()
         ) : (
           <Tab.Navigator
@@ -80,11 +80,7 @@ function App() {
               name="details"
               component={DetailsScreen}
             />
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="chat"
-              component={ChatScreen}
-            />
+            <Tab.Screen name="Chat" component={ChatScreen} />
           </Tab.Navigator>
         )}
         <Toast />
