@@ -6,15 +6,17 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors, TextInput } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import { useAppStore } from '../store';
 
-function LoginScreen() {
+export function LoginScreen({ f }) {
   const [details, setDetails] = useState({
     username: '',
     password: '',
   });
+  console.log(f);
   const [password, showPassword] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const signIn = useAppStore((state) => state.signIn);
   const navigation = useNavigation();
 
   async function loginUser(details) {
@@ -44,7 +46,8 @@ function LoginScreen() {
       });
 
       setLoading(false);
-      navigation.navigate('Details');
+      signIn();
+      navigation.navigate('details');
     } else {
       setLoading(false);
       Toast.show({
@@ -56,13 +59,13 @@ function LoginScreen() {
   }
 
   return (
-    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto border">
+    <View className="flex items-center justify-center h-full gap-4 w-64 m-auto">
       {loading ? (
         <ActivityIndicator animating={true} color={MD2Colors.purple300} />
       ) : (
         <>
           <Text className="text-2xl font-bold self-start">Sign In</Text>
-          <View className="gap-2 w-full border">
+          <View className="gap-2 w-full">
             <Text className="text-[10px] text-[#5F6A80]">Employee ID</Text>
             <TextInput
               placeholder="Enter Employee ID"
@@ -75,7 +78,7 @@ function LoginScreen() {
               mode="outlined"
             />
           </View>
-          <View className="gap-2 w-full border">
+          <View className="gap-2 w-full">
             <Text className="text-[10px] text-[#5F6A80]">Password</Text>
             <TextInput
               value={details.password}
@@ -104,10 +107,18 @@ function LoginScreen() {
               <Text className="text-white self-center">Sign In</Text>
             </TouchableOpacity>
           </View>
+          <View className="flex w-full">
+            <TouchableOpacity
+              onPress={() => navigation.navigate('register')}
+              className="bg-[#F1F1F1] py-2 px-4 h-9 rounded"
+            >
+              <Text className="text-[#5F6A80] self-center">
+                Create an account
+              </Text>
+            </TouchableOpacity>
+          </View>
         </>
       )}
     </View>
   );
 }
-
-export default LoginScreen;
