@@ -34,10 +34,12 @@ export function DetailsScreen() {
   }, []);
 
   return (
-    <View className="items-center justify-center h-full overflow-scroll">
+    <View className="items-center h-full overflow-scroll">
       <Header title={'Training'} />
-      {loading ? (
-        <ActivityIndicator animating={true} color={MD2Colors.purple300} />
+      {true ? (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator animating={true} color={MD2Colors.purple300} />
+        </View>
       ) : (
         <View className="justify-center flex-1 w-full px-5 mt-8">
           <Text className="text-[32px] font-medium self-start text-[#3A4355] mb-8">
