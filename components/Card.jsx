@@ -65,7 +65,12 @@ export const ModuleCard = ({
             buttonColor="#9E53DA"
             className="rounded-md"
             mode="contained"
-            onPress={() => navigation.navigate('individual_module', { id })}
+            onPress={() =>
+              navigation.navigate('individual_module', {
+                id,
+                trainingTitle: title,
+              })
+            }
           >
             Start
           </Button>

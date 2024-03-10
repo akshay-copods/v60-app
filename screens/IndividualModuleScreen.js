@@ -1,8 +1,9 @@
 import { FlatList, Text, View } from 'react-native';
 import { useAppStore } from '../store';
+import { Header } from '../components/Header';
 
 export const IndividualModuleScreen = ({ route, navigation }) => {
-  const { id } = route.params;
+  const { id, trainingTitle } = route.params;
 
   const module = useAppStore((state) => state.getModuleData);
 
@@ -10,25 +11,18 @@ export const IndividualModuleScreen = ({ route, navigation }) => {
 
   return (
     <View className="items-start h-full overflow-scroll border relative">
-      <View className="absolute h-[50%] w-full bg-red-500 top-[14%] opacity-20"></View>
+      <Header trainingTitle={trainingTitle} />
       <FlatList
         data={module(id)}
-        onEndReached={(e) => {
-          console.log(e);
-        }}
-        onStartReached={(e) => {
-          console.log(e);
-        }}
-        onEndReachedThreshold={20}
         renderItem={({ item }) => (
-          <View className="mb-16 text-[#000000] max-w-xl">
-            <Text className="text-lg font-semibold">
+          <View className="mb-8 px-4">
+            <Text className="text-2xl font-extrabold text-purple-800 mb-1">
               TOPIC {item.id}: {item.title}
             </Text>
-            <Text className="text-2xl font-normal mt-4">
+            <Text className="text-lg font-semibold text-gray-600 mb-4">
               {item.titleDescription}
             </Text>
-            <Text className="text-2xl font-normal leading-10 mt-8">
+            <Text className="text-base font-normal text-gray-800 leading-relaxed">
               {item.content}
             </Text>
           </View>
