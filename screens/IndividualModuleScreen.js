@@ -1,20 +1,20 @@
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { useAppStore } from '../store';
 import { Header } from '../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
-export const IndividualModuleScreen = ({ route, navigation }) => {
+export const IndividualModuleScreen = ({ route }) => {
   const { id, trainingTitle } = route.params;
+  const navigation = useNavigation();
 
   const module = useAppStore((state) => state.getModuleData);
 
-  console.log(module);
-
   return (
-    <View className="items-start h-full overflow-scroll border relative">
+    <View className="items-start max-h-max overflow-scroll relative">
       <Header trainingTitle={trainingTitle} />
       <FlatList
         data={module(id)}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View className="mb-8 px-4">
             <Text className="text-2xl font-extrabold text-purple-800 mb-1">
               TOPIC {item.id}: {item.title}
@@ -25,6 +25,18 @@ export const IndividualModuleScreen = ({ route, navigation }) => {
             <Text className="text-base font-normal text-gray-800 leading-relaxed">
               {item.content}
             </Text>
+            {index === module(id).length - 1 && (
+              <View className="w-[262px] mt-10">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Chat')}
+                  className="bg-[#F0F2F4] px-12 py-3 rounded-lg"
+                >
+                  <Text className="text-[#9E53DA] text-center font-bold">
+                    Ask Question To ProdAi
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         )}
         keyExtractor={(item) => item.id}
