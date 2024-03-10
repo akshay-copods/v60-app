@@ -18,7 +18,7 @@ export function DetailsScreen() {
 
   useEffect(() => {
     async function fetchData() {
-      const docRef = doc(db, 'modules', '65bBSCInH7Ls7wMYZsTM');
+      const docRef = doc(db, 'modules', 'ruz9NkiUbTZRJalZf4Hv');
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data()?.modules);

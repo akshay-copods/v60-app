@@ -1,123 +1,184 @@
 import { create } from 'zustand';
 
+const mockData = [
+  {
+    id: '1',
+    moduleName: 'Ventilator Overview and Principles of Operation',
+    estimatedTime: '60',
+    totalTopics: '2',
+    shortModuleDescription:
+      'Understanding the Respironics V60 Ventilator and its operational principles',
+    ModuleContent: [
+      {
+        id: '1',
+        title: 'Definitions and General Information',
+        titleDescription:
+          'Overview of key definitions and modes of the Respironics V60 Ventilator',
+        image: '',
+        content:
+          'The Respironics V60 Ventilator is a crucial medical device used to support patients with respiratory issues. Understanding key definitions is essential for its effective use. The ventilator incorporates various modes to provide optimal support, such as CPAP, PCV, S/T, and AVAPS. Each mode offers specific functionalities to adapt to diverse patient needs. For instance, CPAP mode delivers continuous positive airway pressure, maintaining airway patency during sleep apnea or respiratory distress. The PCV mode controls the pressure at the end of inhalation to support patients with compromised lung function. S/T mode combines spontaneous and timed breaths, ensuring adequate ventilation. Additionally, the AVAPS mode allows for automatic adjustment of pressure support levels to enhance comfort during therapy.',
+      },
+      {
+        id: '2',
+        title: 'Application and Example',
+        titleDescription:
+          'Illustrative example of how ventilator modes are applied in patient scenarios',
+        image: '',
+        content:
+          'To illustrate, a patient with sleep apnea may benefit from the CPAP mode on the ventilator. By delivering continuous positive airway pressure, the device prevents airway collapse, promoting uninterrupted breathing during sleep. This application showcases how understanding the ventilator modes and their functions is vital for tailoring treatment to individual patient conditions.',
+      },
+    ],
+  },
+  {
+    id: '2',
+    moduleName: 'Preparing for Ventilation and Operation',
+    estimatedTime: '45',
+    totalTopics: '3',
+    shortModuleDescription:
+      'Preparation and operational knowledge for using the Respironics V60 Ventilator',
+    ModuleContent: [
+      {
+        id: '1',
+        title: 'Preparing for Ventilation',
+        titleDescription:
+          'Importance of proper setup and starting up the ventilator',
+        image: '',
+        content:
+          'Before commencing ventilation with the Respironics V60 Ventilator, proper setup is crucial. This includes connecting external devices, such as oxygen sources, ensuring the patient circuit is correctly installed, and connecting to a stable power source. Adequate preparation guarantees smooth operation and patient safety. Starting up the ventilator involves navigating the graphical user interface efficiently and conducting a preoperational check to verify all settings and connections.',
+      },
+      {
+        id: '2',
+        title: 'Operation and Control Settings',
+        titleDescription:
+          'Understanding adjustable control settings and operational aspects',
+        image: '',
+        content:
+          'During operation, users can change ventilation modes and control settings to adapt to patient requirements. This flexibility allows for personalized therapy adjustments. Additionally, features like the Ramp Time function enable gradual pressure adjustments for patient comfort. Changing alarm settings is essential to respond effectively to critical situations and ensure patient safety. Understanding these operational aspects ensures optimal use of the ventilator for patient care and comfort.',
+      },
+      {
+        id: '3',
+        title: 'Example of Operation',
+        titleDescription:
+          'Illustrative example of operational knowledge in clinical settings',
+        image: '',
+        content: `For instance, in a clinical setting, a respiratory therapist may need to adjust the ventilation mode from CPAP to S/T mode for a patient who requires a combination of spontaneous and timed breaths. By efficiently changing control settings and monitoring the patient's response, the therapist can provide tailored respiratory support using the ventilator. This example highlights the importance of operational knowledge in delivering precise and effective patient care.`,
+      },
+    ],
+  },
+  {
+    id: '3',
+    moduleName: 'Patient Monitoring and Alarms',
+    estimatedTime: '45',
+    totalTopics: '3',
+    shortModuleDescription:
+      'Understanding patient monitoring and alarm response',
+    ModuleContent: [
+      {
+        id: '1',
+        title: 'Patient Monitoring',
+        titleDescription:
+          'Effective patient monitoring and interpreting parameters',
+        image: '',
+        content:
+          'Understanding display conventions, scaling waveform axes, and freezing/unfreezing waveforms to visualize and analyze patient data effectively.',
+      },
+      {
+        id: '2',
+        title: 'Alarms and Responses',
+        titleDescription:
+          'Understanding ventilator alarms and prompt responses',
+        image: '',
+        content:
+          'Responding promptly to alarms, setting alarm loudness, and silencing alarms when necessary. Manual reset or clearing autoreset alarms for efficient addressing of alarm situations.',
+      },
+      {
+        id: '3',
+        title: 'Application in Clinical Practice',
+        titleDescription: 'Clinical scenario and nurse response to alarms',
+        image: '',
+        content:
+          "Nurse's role in addressing high inspiratory pressure alarm, assessing potential causes, and ensuring patient safety and well-being.",
+      },
+    ],
+  },
+  {
+    id: '4',
+    moduleName: 'Care and Maintenance of the Ventilator',
+    estimatedTime: '60',
+    totalTopics: '3',
+    shortModuleDescription:
+      'Proper care, maintenance, and storage of the ventilator',
+    ModuleContent: [
+      {
+        id: '1',
+        title: 'Decontamination and Preventive Maintenance',
+        titleDescription: 'Proper cleaning and maintenance procedures',
+        image: '',
+        content:
+          'Regular decontamination procedures and implementing preventive maintenance for optimal functionality and reduced risk of malfunctions.',
+      },
+      {
+        id: '2',
+        title: 'Repairs and Storage',
+        titleDescription:
+          'Understanding repair protocols and storage practices',
+        image: '',
+        content:
+          "Understanding protocols for repairs, disposal, and storage. Proper storage practices to maintain the ventilator's readiness for patient use.",
+      },
+      {
+        id: '3',
+        title: 'Practical Example',
+        titleDescription: "A technician's adherence to maintenance protocols",
+        image: '',
+        content:
+          'Following prescribed maintenance schedules and procedures to prevent equipment malfunctions and ensure optimal performance for patient care.',
+      },
+    ],
+  },
+  {
+    id: '5',
+    moduleName: 'Technical Specifications and Warranty Compliance',
+    estimatedTime: '60',
+    totalTopics: '3',
+    shortModuleDescription:
+      'Training Module 5: Technical Specifications and Warranty Compliance',
+    ModuleContent: [
+      {
+        id: '1',
+        title: 'Understanding Technical Specifications',
+        titleDescription:
+          'The Respironics V60 Ventilator comes with detailed technical specifications',
+        image: '',
+        content:
+          "The Respironics V60 Ventilator comes with detailed technical specifications that define its operational parameters and capabilities. These specifications include control settings, patient data metrics, alarm configurations, menu window settings, and diagnostic mode functions accessible to operators. Understanding these technical details is crucial for healthcare professionals to optimize the ventilator's performance and tailor patient care according to specific parameters.",
+      },
+      {
+        id: '2',
+        title: 'Warranty and Regulatory Compliance',
+        titleDescription:
+          'Compliance with warranty guidelines and regulatory standards is essential',
+        image: '',
+        content:
+          'Compliance with warranty guidelines and regulatory standards is essential for ensuring the safe and effective use of the ventilator. The user manual provides information on warranty coverage, limitations, and procedures for warranty claims. Additionally, adherence to regulatory requirements, such as electromagnetic compatibility standards, WEEE recycling directives, and safety regulations, is necessary to maintain legal and operational compliance in healthcare settings.',
+      },
+      {
+        id: '3',
+        title: 'Practical Application',
+        titleDescription:
+          'A biomedical engineer conducting an equipment audit ensures',
+        image: '',
+        content:
+          "A biomedical engineer conducting an equipment audit ensures that the Respironics V60 Ventilator meets all specified technical parameters outlined in the user manual. By verifying the ventilator's compliance with warranty terms and regulatory standards, the engineer mitigates risks associated with equipment malfunctions and non-compliance. This application underscores the significance of technical specifications, warranty adherence, and regulatory compliance in maintaining equipment quality and patient safety in healthcare settings.",
+      },
+    ],
+  },
+];
+
 export const useAppStore = create((set) => ({
   isSignedIn: false,
   signIn: () => set({ isSignedIn: true }),
-  moduleData: [
-    {
-      id: '1',
-      moduleName: 'Lockout-Tagout Procedures',
-      estimatedTime: '45',
-      totalTopics: '2',
-      shortModuleDescription:
-        'LOTO procedures are essential in ensuring the safety of maintenance workers during repair and maintenance tasks on equipment and machinery.',
-      ModuleContent: [
-        {
-          id: '1',
-          title: 'Purpose of LOTO Procedures',
-          titleDescription:
-            'The purpose of LOTO is to prevent unexpected energization, start-up, or release of stored energy that could harm workers.',
-          image: '',
-          content:
-            'The purpose of LOTO is to prevent unexpected energization, start-up, or release of stored energy that could harm workers. The procedure involves isolating energy sources and securing them with lockout devices.',
-        },
-        {
-          id: '2',
-          title: 'Verification Steps',
-          titleDescription:
-            'Verification steps, like testing the MCCB to ensure it cannot be turned on, are crucial to confirm the effectiveness of the lockout.',
-          image: '',
-          content:
-            'Verification steps, like testing the MCCB to ensure it cannot be turned on, are crucial to confirm the effectiveness of the lockout. When a lock is applied, it restricts entry and ensures only authorized personnel can open the door.',
-        },
-      ],
-    },
-    {
-      id: '2',
-      moduleName: 'Electrical Isolation Process',
-      estimatedTime: '30',
-      totalTopics: '2',
-      shortModuleDescription:
-        'Electrical isolation is a critical step in LOTO procedures to safeguard maintenance personnel working on electrical equipment.',
-      ModuleContent: [
-        {
-          id: '3',
-          title: 'Importance of Electrical Isolation',
-          titleDescription:
-            'Electrical isolation is a critical step in LOTO procedures to safeguard maintenance personnel working on electrical equipment.',
-          image: '',
-          content:
-            'Electrical isolation is a critical step in LOTO procedures to safeguard maintenance personnel working on electrical equipment. It involves disconnecting power sources to prevent electrical accidents.',
-        },
-        {
-          id: '4',
-          title: 'Testing and Verification',
-          titleDescription:
-            "Testing the MCCB to ensure it remains in the 'OFF' position is vital before proceeding with any work on the equipment.",
-          image: '',
-          content:
-            "Testing the MCCB to ensure it remains in the 'OFF' position is vital before proceeding with any work on the equipment. By disconnecting the power source, you eliminate the risk of electric shock.",
-        },
-      ],
-    },
-    {
-      id: '3',
-      moduleName: 'Pneumatic Isolation Guidelines',
-      estimatedTime: '30',
-      totalTopics: '1',
-      shortModuleDescription:
-        'Pneumatic isolation guidelines for maintenance procedures involving pneumatic systems.',
-      ModuleContent: [
-        {
-          id: '1',
-          title: 'Pneumatic Isolation Guidelines',
-          titleDescription:
-            'Crucial aspect of maintenance procedures involving pneumatic systems.',
-          image: 'image url related to the topic',
-          content:
-            'Pneumatic isolation is a crucial aspect of maintenance procedures that involve pneumatic systems. It is essential to follow specific steps to isolate and secure pneumatic energy sources effectively. The release of lockout/tag-out and restoring equipment to service in pneumatic systems requires clear communication with all affected employees, verification of the safety of the area, and ensuring safety devices and guards are in place. Removing the lock and tag only after these steps are completed and communicating system re-energization are key safety measures to prevent accidents.\n\nAnalogously, think of pneumatic isolation as parking a car before maintenance. Just as parking the car in a safe location away from traffic ensures safety during maintenance, isolating pneumatic energy sources in a secure manner protects workers from potential harm. Releasing the lockout/tag-out only after verifying safety measures and communicating the re-energization of the system is akin to ensuring all safety precautions are in place before resuming normal operations, emphasizing the importance of a systematic approach to safety.',
-        },
-      ],
-    },
-    {
-      id: '4',
-      moduleName: 'Importance of Maintenance Categories',
-      estimatedTime: '25',
-      totalTopics: '1',
-      shortModuleDescription:
-        'Understanding the importance of autonomous, preventive, and breakdown maintenance categories.',
-      ModuleContent: [
-        {
-          id: '1',
-          title: 'Importance of Maintenance Categories',
-          titleDescription:
-            'Categorized maintenance activities for equipment reliability and longevity.',
-          image: 'image url related to the topic',
-          content:
-            'Maintenance activities are often categorized into autonomous maintenance, preventive maintenance, and breakdown maintenance, each serving a specific purpose in ensuring equipment reliability and longevity. Autonomous maintenance involves operators performing routine tasks to maintain equipment efficiency and cleanliness, contributing to overall equipment effectiveness. Preventive maintenance includes scheduled inspections and tasks to prevent equipment failures and extend its lifespan. Breakdown maintenance, on the other hand, focuses on repairing equipment after a failure occurs to minimize downtime.\n\nTo illustrate, think of maintenance categories as healthcare practices. Autonomous maintenance is like personal hygiene routines that individuals perform daily to stay healthy. Preventive maintenance is comparable to regular health check-ups and screenings to prevent illnesses, while breakdown maintenance is akin to seeking medical attention after experiencing symptoms. Just as a combination of these healthcare practices promotes well-being, a balance of autonomous, preventive, and breakdown maintenance ensures equipment reliability and operational efficiency, prolonging the lifespan of machinery and reducing unexpected downtime.',
-        },
-      ],
-    },
-    {
-      id: '5',
-      moduleName: 'Operator Isolation Procedures',
-      estimatedTime: '20',
-      totalTopics: '1',
-      shortModuleDescription:
-        'Critical procedures for ensuring the safety of operators and maintenance personnel during equipment maintenance.',
-      ModuleContent: [
-        {
-          id: '1',
-          title: 'Operator Isolation Procedures',
-          titleDescription:
-            'Critical for ensuring the safety of operators and maintenance personnel.',
-          image: 'image url related to the topic',
-          content:
-            'Operator isolation procedures are critical for ensuring the safety of operators and maintenance personnel when working on equipment. In the context of a depositer panel, the operator must follow specific steps to isolate energy sources effectively. This includes moving the MCCB knob to disconnect the power supply, attaching lockout devices such as padlocks, and ensuring that the equipment cannot be activated during maintenance tasks.\n\nAnalogously, consider operator isolation procedures as setting up a barricade around a construction site. Just as a barricade restricts access to a hazardous area, operator isolation procedures restrict energy flow to equipment, safeguarding workers from potential dangers. The process of verifying the isolation measures and testing the equipment before maintenance is like inspecting the stability of a barricade before allowing construction work to proceed, emphasizing the importance of thorough safety checks in safeguarding personnel during maintenance activities.',
-        },
-      ],
-    },
-  ],
+  moduleData: mockData,
   setModuleData: (data) => set({ moduleData: data }),
 
   getModuleData: (id) => {

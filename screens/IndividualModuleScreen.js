@@ -15,7 +15,7 @@ export const IndividualModuleScreen = ({ route }) => {
       <FlatList
         data={module(id)}
         renderItem={({ item, index }) => (
-          <View className="mb-8 px-4">
+          <View className={`mb-8 ${index === 0 ? 'mt-16' : ''}`}>
             <Text className="text-2xl font-extrabold text-purple-800 mb-1">
               TOPIC {item.id}: {item.title}
             </Text>
@@ -40,7 +40,7 @@ export const IndividualModuleScreen = ({ route }) => {
           </View>
         )}
         keyExtractor={(item) => item.id}
-        className="w-full px-16 mt-16"
+        className="w-full px-16"
       />
     </View>
   );
