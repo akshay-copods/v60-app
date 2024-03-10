@@ -8,7 +8,6 @@ import { ModuleCard } from '../components/Card';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
 
 export function DetailsScreen() {
   const [modules, setModules] = useState([

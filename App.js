@@ -137,11 +137,18 @@ function App() {
             {!isSignedIn ? (
               LoginStack()
             ) : (
-              <Stack.Screen
-                name="training"
-                options={{ headerShown: false }}
-                component={HomeStack}
-              />
+              <>
+                <Stack.Screen
+                  name="training"
+                  options={{ headerShown: false }}
+                  component={HomeStack}
+                />
+                <Stack.Screen
+                  name="individual_module"
+                  options={{ headerShown: false }}
+                  component={() => <Text>hello</Text>}
+                />
+              </>
             )}
           </Stack.Navigator>
         </SafeAreaView>
