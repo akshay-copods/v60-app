@@ -65,17 +65,36 @@ function App() {
           {isSignedIn ? (
             <LoginStack />
           ) : (
-            <Stack.Navigator
-              screenOptions={{ cardStyle: { backgroundColor: '#fbf6ff' } }}
+            <Tab.Navigator
+              screenOptions={{
+                cardStyle: { backgroundColor: '#fbf6ff' },
+                tabBarStyle: {
+                  backgroundColor: '#FFFFFF',
+                  position: 'absolute',
+                  bottom: 25,
+                  left: 240,
+                  right: 0,
+                  borderRadius: 16,
+                  borderColor: '#737E93',
+                  borderWidth: 1,
+                  width: 791,
+                  height: 64,
+                  shadowColor: '#fff',
+                },
+              }}
               initialRouteName="details"
             >
-              <Stack.Screen
+              <Tab.Screen
                 options={{ headerShown: false }}
                 name="details"
                 component={DetailsScreen}
               />
-              <Stack.Screen name="Chat" component={ChatScreen} />
-            </Stack.Navigator>
+              <Tab.Screen
+                name="Chat"
+                component={ChatScreen}
+                options={{ tabBarStyle: { display: 'none' } }}
+              />
+            </Tab.Navigator>
           )}
         </SafeAreaView>
         <Toast />
