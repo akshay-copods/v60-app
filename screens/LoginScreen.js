@@ -13,7 +13,7 @@ export function LoginScreen({ f }) {
     username: '',
     password: '',
   });
-  console.log(f);
+
   const [password, showPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const signIn = useAppStore((state) => state.signIn);
@@ -47,7 +47,6 @@ export function LoginScreen({ f }) {
 
       setLoading(false);
       signIn();
-      navigation.navigate('details');
     } else {
       setLoading(false);
       Toast.show({

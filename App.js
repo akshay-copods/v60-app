@@ -15,16 +15,14 @@ import { DetailsScreen } from './screens/DetailsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAppStore } from './store';
 import { ChatScreen } from './screens/ChatScreen';
+import { FontAwesome5, Entypo } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function LoginStack() {
   return (
-    <Stack.Navigator
-      initialRouteName="login"
-      screenOptions={{ cardStyle: { backgroundColor: '#fbf6ff' } }}
-    >
+    <>
       <Stack.Screen
         name="login"
         options={{ headerShown: false }}
@@ -35,7 +33,78 @@ function LoginStack() {
         name="register"
         component={RegisterScreen}
       />
-    </Stack.Navigator>
+    </>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: '#fbf6ff' },
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          position: 'absolute',
+          bottom: 25,
+          left: 240,
+          right: 0,
+          borderRadius: 16,
+          borderColor: '#737E93',
+          borderWidth: 1,
+          width: 791,
+          height: 64,
+          shadowColor: '#fff',
+        },
+        tabBarItemStyle: {
+          alignContent: 'center',
+          justifyContent: 'center',
+        },
+        tabBarLabel: (tab) => {
+          return (
+            <Text
+              style={{
+                color: tab.focused ? '#9E53DA' : '#737E93',
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginLeft: 20,
+              }}
+            >
+              {tab.children}
+            </Text>
+          );
+        },
+      }}
+      initialRouteName="Training"
+    >
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
+              name="graduation-cap"
+              size={20}
+              color={focused ? '#9E53DA' : '#737E93'}
+            />
+          ),
+        }}
+        name="Training"
+        component={DetailsScreen}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarStyle: { display: 'none' },
+          tabBarIcon: ({ focused }) => (
+            <Entypo
+              name="chat"
+              size={20}
+              color={focused ? '#9E53DA' : '#737E93'}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -62,40 +131,19 @@ function App() {
         />
 
         <SafeAreaView style={style.droidSafeArea}>
-          {isSignedIn ? (
-            <LoginStack />
-          ) : (
-            <Tab.Navigator
-              screenOptions={{
-                cardStyle: { backgroundColor: '#fbf6ff' },
-                tabBarStyle: {
-                  backgroundColor: '#FFFFFF',
-                  position: 'absolute',
-                  bottom: 25,
-                  left: 240,
-                  right: 0,
-                  borderRadius: 16,
-                  borderColor: '#737E93',
-                  borderWidth: 1,
-                  width: 791,
-                  height: 64,
-                  shadowColor: '#fff',
-                },
-              }}
-              initialRouteName="details"
-            >
-              <Tab.Screen
+          <Stack.Navigator
+            initialRouteName={!isSignedIn ? 'login' : 'training'}
+          >
+            {!isSignedIn ? (
+              LoginStack()
+            ) : (
+              <Stack.Screen
+                name="training"
                 options={{ headerShown: false }}
-                name="details"
-                component={DetailsScreen}
+                component={HomeStack}
               />
-              <Tab.Screen
-                name="Chat"
-                component={ChatScreen}
-                options={{ tabBarStyle: { display: 'none' } }}
-              />
-            </Tab.Navigator>
-          )}
+            )}
+          </Stack.Navigator>
         </SafeAreaView>
         <Toast />
       </PaperProvider>
