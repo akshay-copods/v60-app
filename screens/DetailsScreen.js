@@ -18,6 +18,7 @@ export function DetailsScreen() {
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const docRef = doc(db, 'modules', 'ruz9NkiUbTZRJalZf4Hv');
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -33,15 +34,15 @@ export function DetailsScreen() {
   }, []);
 
   return (
-    <View className="items-center h-full overflow-scroll">
+    <View className="items-center justify-center h-full overflow-scroll">
       <Header title={'Training'} />
-      <View className="justify-center flex-1 w-full px-5 mt-8">
-        <Text className="text-[32px] font-medium self-start text-[#3A4355] mb-8">
-          Lets start with your First Training module..
-        </Text>
-        {false ? (
-          <ActivityIndicator animating={true} color={MD2Colors.purple300} />
-        ) : (
+      {loading ? (
+        <ActivityIndicator animating={true} color={MD2Colors.purple300} />
+      ) : (
+        <View className="justify-center flex-1 w-full px-5 mt-8">
+          <Text className="text-[32px] font-medium self-start text-[#3A4355] mb-8">
+            Lets start with your First Training module..
+          </Text>
           <FlatList
             data={modules}
             renderItem={({ item }) => (
@@ -56,8 +57,8 @@ export function DetailsScreen() {
             )}
             keyExtractor={(item) => item.id}
           />
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 }
