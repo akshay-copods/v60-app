@@ -10,7 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DetailsScreen } from './screens/DetailsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAppStore } from './store';
@@ -61,25 +61,35 @@ function App() {
           translucent={false}
         />
 
-        {!isSignedIn ? (
-          <LoginStack />
-        ) : (
-          <Tab.Navigator
-            sceneContainerStyle={{ backgroundColor: '#fbf6ff' }}
-            initialRouteName="details"
-          >
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="details"
-              component={DetailsScreen}
-            />
-            <Tab.Screen name="Chat" component={ChatScreen} />
-          </Tab.Navigator>
-        )}
+        <SafeAreaView style={style.droidSafeArea}>
+          {isSignedIn ? (
+            <LoginStack />
+          ) : (
+            <Stack.Navigator
+              screenOptions={{ cardStyle: { backgroundColor: '#fbf6ff' } }}
+              initialRouteName="details"
+            >
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="details"
+                component={DetailsScreen}
+              />
+              <Stack.Screen name="Chat" component={ChatScreen} />
+            </Stack.Navigator>
+          )}
+        </SafeAreaView>
         <Toast />
       </PaperProvider>
     </NavigationContainer>
   );
 }
+
+const style = StyleSheet.create({
+  droidSafeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? 0 : 0,
+    justifyContent: 'center',
+  },
+});
 
 export default App;

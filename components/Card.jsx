@@ -13,7 +13,7 @@ export const ModuleCard = ({
   <Card className="mb-6 w-[499px] bg-white shadow-lg border border-[#dedede]">
     <Card.Content>
       <View className="flex-row justify-between w-full items-start">
-        <View className="gap-2">
+        <View>
           <View className="h-12 w-12 rounded-md bg-[#F0F2F4] items-center justify-center">
             <MaterialIcons
               name="precision-manufacturing"
@@ -21,7 +21,7 @@ export const ModuleCard = ({
               color="#5F6A80"
             />
           </View>
-          <Text className="text-[#8A94A5] font-medium text-xs">
+          <Text className="text-[#8A94A5] font-medium text-xs mt-2">
             TRAINING {id}
           </Text>
         </View>
@@ -32,26 +32,26 @@ export const ModuleCard = ({
           <Text className="text-sm text-[#3A4355]">Locked</Text>
         </View> */}
       </View>
-      <View className="gap-2 mt-6">
+      <View className="mt-6">
         <Text className="text-[#3A4355] text-lg font-medium">{title}</Text>
-        <Text className="text-[#3A4355] text-sm font-normal">
+        <Text className="text-[#3A4355] text-sm font-normal mt-2">
           {shortDescription}
         </Text>
       </View>
-      <View className="flex-row gap-4 mt-1">
-        <View className="flex-row gap-2">
+      <View className="flex-row mt-6">
+        <View className="flex-row">
           <MaterialCommunityIcons
             name="calendar-clock-outline"
             size={20}
             color="#5F6A80"
           />
-          <Text className="text-sm font-normal text-[#5F6A80]">
+          <Text className="text-sm font-normal text-[#5F6A80] ml-2">
             ~{estimatedTime} Mins
           </Text>
         </View>
-        <View className="flex-row gap-2">
+        <View className="flex-row ml-4">
           <MaterialIcons name="menu-book" size={20} color="#5F6A80" />
-          <Text className="text-sm font-normal text-[#5F6A80]">
+          <Text className="text-sm font-normal text-[#5F6A80] ml-2">
             {totalTopics} Topics
           </Text>
         </View>

@@ -7,6 +7,7 @@ import { db } from '../firebaseConfig';
 import { ModuleCard } from '../components/Card';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from '../components/Header';
 
 export function DetailsScreen() {
   const [modules, setModules] = useState([
@@ -110,9 +111,12 @@ export function DetailsScreen() {
   // }, []);
 
   return (
-    <View className="gap-3 items-center h-full overflow-scroll">
-      <View className="justify-center gap-3 flex-1 w-full px-5">
-        <Text className="text-2xl font-bold self-start">Training Modules</Text>
+    <View className="items-center h-full overflow-scroll">
+      <Header title={'Training'} />
+      <View className="justify-center flex-1 w-full px-5 mt-8">
+        <Text className="text-[32px] font-medium self-start text-[#3A4355] mb-8">
+          Lets start with your First Training module..
+        </Text>
         {false ? (
           <ActivityIndicator animating={true} color={MD2Colors.purple300} />
         ) : (
