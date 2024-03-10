@@ -16,6 +16,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useAppStore } from './store';
 import { ChatScreen } from './screens/ChatScreen';
 import { FontAwesome5, Entypo } from '@expo/vector-icons';
+import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -40,8 +41,8 @@ function LoginStack() {
 function HomeStack() {
   return (
     <Tab.Navigator
+      sceneContainerStyle={{ backgroundColor: '#fbf6ff' }}
       screenOptions={{
-        cardStyle: { backgroundColor: '#fbf6ff' },
         tabBarStyle: {
           backgroundColor: '#FFFFFF',
           position: 'absolute',
@@ -134,7 +135,7 @@ function App() {
           <Stack.Navigator
             initialRouteName={!isSignedIn ? 'login' : 'training'}
           >
-            {!isSignedIn ? (
+            {isSignedIn ? (
               LoginStack()
             ) : (
               <>
@@ -145,8 +146,11 @@ function App() {
                 />
                 <Stack.Screen
                   name="individual_module"
-                  options={{ headerShown: false }}
-                  component={() => <Text>hello</Text>}
+                  options={{
+                    headerShown: false,
+                    cardStyle: { backgroundColor: '#fbf6ff' },
+                  }}
+                  component={IndividualModuleScreen}
                 />
               </>
             )}
