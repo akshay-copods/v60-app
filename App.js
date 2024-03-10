@@ -135,7 +135,7 @@ function App() {
           <Stack.Navigator
             initialRouteName={!isSignedIn ? 'login' : 'training'}
           >
-            {isSignedIn ? (
+            {!isSignedIn ? (
               LoginStack()
             ) : (
               <>
