@@ -17,6 +17,7 @@ import { useAppStore } from './store';
 import { ChatScreen } from './screens/ChatScreen';
 import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
+import { Onboarding } from './screens/onboarding';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -133,12 +134,20 @@ function App() {
 
         <SafeAreaView style={style.droidSafeArea}>
           <Stack.Navigator
-            initialRouteName={!isSignedIn ? 'login' : 'training'}
+            initialRouteName={!isSignedIn ? 'login' : 'onboarding'}
           >
-            {!isSignedIn ? (
+            {isSignedIn ? (
               LoginStack()
             ) : (
               <>
+                <Stack.Screen
+                  name="onboarding"
+                  options={{
+                    headerShown: false,
+                    cardStyle: { backgroundColor: '#fbf6ff' },
+                  }}
+                  component={Onboarding}
+                />
                 <Stack.Screen
                   name="training"
                   options={{ headerShown: false }}
