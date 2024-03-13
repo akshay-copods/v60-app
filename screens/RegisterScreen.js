@@ -23,6 +23,7 @@ export function RegisterScreen() {
     });
     console.log('Document written with ID: ', docRef.id);
     setLoading(false);
+    navigation.navigate('login');
   }
 
   const navigation = useNavigation();

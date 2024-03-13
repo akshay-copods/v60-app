@@ -1,4 +1,10 @@
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useAppStore } from '../store';
 import { Header } from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
@@ -12,10 +18,9 @@ export const IndividualModuleScreen = ({ route }) => {
   return (
     <View className="items-start max-h-max overflow-scroll relative">
       <Header trainingTitle={trainingTitle} />
-      <FlatList
-        data={module(id)}
-        renderItem={({ item, index }) => (
-          <View className={`mb-8 ${index === 0 ? 'mt-16' : ''}`}>
+      <ScrollView className="w-full px-16">
+        {module(id).map((item, index) => (
+          <View key={index} className={`mb-8 ${index === 0 ? 'mt-16' : ''}`}>
             <Text className="text-2xl font-extrabold text-purple-800 mb-1">
               TOPIC {item.id}: {item.title}
             </Text>
@@ -38,10 +43,8 @@ export const IndividualModuleScreen = ({ route }) => {
               </View>
             )}
           </View>
-        )}
-        keyExtractor={(item) => item.id}
-        className="w-full px-16"
-      />
+        ))}
+      </ScrollView>
     </View>
   );
 };
