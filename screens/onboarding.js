@@ -4,8 +4,12 @@ import { Animated, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-paper';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { useAppStore } from '../store';
 
 export const Onboarding = () => {
+  const userName = useAppStore((state) => state.signedInUser);
+  const machineName = useAppStore((state) => state.machineName);
+
   const navigation = useNavigation();
   const [activeStep, setActiveStep] = useState(0);
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -100,7 +104,7 @@ export const Onboarding = () => {
               source={require('../assets/onboarding.png')}
             />
             <Text className="mt-12 text-5xl font-semibold">
-              Welcome OTIS..!!
+              Welcome {userName.toUpperCase()}..!!
             </Text>
           </View>
         </Animated.View>
@@ -118,7 +122,7 @@ export const Onboarding = () => {
               }}
               className="text-5xl text-[#3A4355] font-semibold"
             >
-              Welcome OTIS..!!
+              Welcome {userName.toUpperCase()}..!!
             </Animated.Text>
             <Animated.Text
               style={{
@@ -134,7 +138,7 @@ export const Onboarding = () => {
               }}
               className="text-3xl text-[#3A4355] font-normal"
             >
-              My mission? To make you a V60-Depositor pro!
+              My mission? To make you a {machineName} pro!
             </Animated.Text>
             <Animated.Text
               style={{
@@ -171,7 +175,7 @@ export const Onboarding = () => {
               }}
               className="text-3xl font-semibold"
             >
-              Buckle up, Otis!
+              Buckle up, {userName.charAt(0).toUpperCase()}!
             </Animated.Text>
             <Animated.View
               style={{
@@ -203,7 +207,7 @@ export const Onboarding = () => {
               className="mt-10"
             >
               <Text className="text-2xl font-normal">
-                We’ll dive deep into the V60-Depositor machine, covering
+                We’ll dive deep into the {machineName} machine, covering
               </Text>
               <View className="flex-row items-center mt-3">
                 <View className="h-12 w-12 rounded-md bg-[#F5D7FF] items-center justify-center">
@@ -221,7 +225,8 @@ export const Onboarding = () => {
               style={{ opacity: buttonFadeAnim2 }}
               className="text-2xl mt-12 font-normal"
             >
-              From the basics to advanced techniques, you’ll become a depositor
+              From the basics to advanced techniques, you’ll become a
+              {machineName}
               expert.
             </Animated.Text>
             <Animated.Text

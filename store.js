@@ -177,9 +177,13 @@ const mockData = [
 
 export const useAppStore = create((set) => ({
   isSignedIn: false,
+  signedInUser: null,
+  machineName: null,
   signIn: () => set({ isSignedIn: true }),
   moduleData: mockData,
   setModuleData: (data) => set({ moduleData: data }),
+  setSignedInUser: (user) => set({ signedInUser: user }),
+  setMachineName: (name) => set({ machineName: name }),
 
   getModuleData: (id) => {
     return useAppStore.getState().moduleData.find((module) => module.id === id)
