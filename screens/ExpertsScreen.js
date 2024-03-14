@@ -9,38 +9,12 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-const DATA = [
-  {
-    name: 'Johnathon Smith',
-    role: 'Supervisor Production Line',
-    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
-    busy: true,
-    time: 'Scheduled Tomorrow, 10:00 AM',
-  },
-];
-const RECENT_MEETINGS = [
-  {
-    name: 'Georgia Samuels',
-    role: 'Supervisor Production Line',
-    img: 'https://xsgames.co/randomusers/avatar.php?g=female',
-    busy: false,
-    time: 'Mon, 23/02/2024 4:00 AM',
-  },
-  {
-    name: 'Georgia Samuels',
-    role: 'Supervisor Production Line',
-    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
-    busy: true,
-    time: 'Fri, 20/02/2024 4:00 AM',
-  },
-];
-const REQUEST_EXPERTS = [
-  {
-    name: 'Georgia Samuels',
-    role: 'Supervisor Production Line',
-    img: 'https://xsgames.co/randomusers/avatar.php?g=female',
-  },
-];
+import {
+  MEETINGS_DATA,
+  RECENT_MEETINGS,
+  REQUEST_EXPERTS,
+} from './ExpertsScreenMockData';
+
 const CardBusyChip = () => {
   return (
     <View
@@ -125,7 +99,7 @@ const MeetingsCard = ({ busy, name, role, time, image }) => {
               style={{
                 lineHeight: 24,
               }}
-              className="font-medium font-inter text-sm "
+              className="font-medium text-sm "
             >
               {name ? name : 'Johnathon Smith'}
             </Text>
@@ -272,7 +246,7 @@ export const ExpertsScreen = () => {
             Scheduled Meetings
           </Text>
           <ScrollView className="flex" horizontal={true}>
-            {DATA.map((person) => (
+            {MEETINGS_DATA.map((person) => (
               <MeetingsCard
                 busy={person.busy}
                 name={person.name}
