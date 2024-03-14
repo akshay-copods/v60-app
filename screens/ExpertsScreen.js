@@ -9,18 +9,36 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 const DATA = [
   {
-    name: 'Dr. John Doe',
-    role: 'Data Science',
-    img: 'https://randomuser.me/api',
+    name: 'Johnathon Smith',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
     busy: true,
-    schedule: {
-      date: '20th Oct',
-      time: '10:00 AM',
-      scheduled: true,
-    },
+    time: 'Scheduled Tomorrow, 10:00 AM',
+  },
+];
+const RECENT_MEETINGS = [
+  {
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=female',
+    busy: false,
+    time: 'Mon, 23/02/2024 4:00 AM',
+  },
+  {
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
+    busy: true,
+    time: 'Fri, 20/02/2024 4:00 AM',
+  },
+];
+const REQUEST_EXPERTS = [
+  {
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=female',
   },
 ];
 const CardBusyChip = () => {
@@ -83,7 +101,7 @@ const CardAvailableChip = () => {
     </View>
   );
 };
-const MeetingsCard = () => {
+const MeetingsCard = ({ busy, name, role, time, image }) => {
   return (
     <View className="w-96 px-5 py-6 bg-white rounded-2xl">
       <View className="flex flex-row items-center gap-3">
@@ -92,7 +110,7 @@ const MeetingsCard = () => {
           <Image
             className="rounded-xl"
             style={{ width: 104, height: 104 }}
-            source={{ uri: 'https://picsum.photos/700' }}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -109,7 +127,7 @@ const MeetingsCard = () => {
               }}
               className="font-medium font-inter text-sm "
             >
-              Johnathon Smith
+              {name ? name : 'Johnathon Smith'}
             </Text>
 
             <Text
@@ -118,7 +136,7 @@ const MeetingsCard = () => {
               }}
               className="font-normal text-xs text-[#3A4355]"
             >
-              Card content
+              {role ? role : 'Supervisor Production Line'}
             </Text>
           </View>
           <View className="flex flex-row gap-2">
@@ -128,16 +146,16 @@ const MeetingsCard = () => {
               color="#5F6A80"
             />
             <Text className="text-xs text-[#5F6A80] font-normal ">
-              Scheduled Tomorrow, 10:00 AM
+              {time ? time : 'Scheduled Tomorrow, 10:00 AM'}
             </Text>
           </View>
-          <CardBusyChip />
+          {busy ? <CardBusyChip /> : <CardAvailableChip />}
         </View>
       </View>
     </View>
   );
 };
-const RequestExpertCard = () => {
+const RequestExpertCard = ({ image, name, role }) => {
   return (
     <View
       style={{
@@ -170,7 +188,7 @@ const RequestExpertCard = () => {
             borderTopRightRadius: 8,
           }}
           source={{
-            uri: 'https://picsum.photos/700',
+            uri: image,
           }}
         />
       </View>
@@ -194,7 +212,7 @@ const RequestExpertCard = () => {
               color: '#101010',
             }}
           >
-            Name
+            {name ? name : 'Johnathon Smith'}
           </Text>
           <Text
             style={{
@@ -203,7 +221,7 @@ const RequestExpertCard = () => {
               color: '#3A4355',
             }}
           >
-            Role
+            {role ? role : 'Supervisor Production Line'}
           </Text>
         </View>
         <Button
@@ -230,7 +248,7 @@ const RequestExpertCard = () => {
 };
 export const ExpertsScreen = () => {
   return (
-    <ScrollView className="h-full overflow-scroll">
+    <ScrollView style={{}} className="h-full">
       <Header title={'Talk to Experts'} />
       {/* Meeting cards */}
       <View
@@ -254,7 +272,15 @@ export const ExpertsScreen = () => {
             Scheduled Meetings
           </Text>
           <ScrollView className="flex" horizontal={true}>
-            <MeetingsCard />
+            {DATA.map((person) => (
+              <MeetingsCard
+                busy={person.busy}
+                name={person.name}
+                role={person.role}
+                time={person.time}
+                image={person.img}
+              />
+            ))}
           </ScrollView>
         </View>
         {/* Blue Banner */}
@@ -313,8 +339,13 @@ export const ExpertsScreen = () => {
             flexDirection: 'row',
           }}
         >
-          <RequestExpertCard />
-          <RequestExpertCard />
+          {REQUEST_EXPERTS.map((person) => (
+            <RequestExpertCard
+              image={person.img}
+              name={person.name}
+              role={person.role}
+            />
+          ))}
         </View>
         {/* Recent meeting cards */}
         <View
@@ -333,8 +364,15 @@ export const ExpertsScreen = () => {
             Recent Meetings{' '}
           </Text>
           <View style={{ gap: 16, flexDirection: 'row' }} horizontal={true}>
-            <MeetingsCard />
-            <MeetingsCard />
+            {RECENT_MEETINGS.map((person) => (
+              <MeetingsCard
+                busy={person.busy}
+                image={person.img}
+                name={person.name}
+                role={person.role}
+                time={person.time}
+              />
+            ))}
           </View>
         </View>
       </View>
