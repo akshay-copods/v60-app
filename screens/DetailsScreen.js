@@ -19,15 +19,30 @@ export function DetailsScreen() {
         <FlatList
           data={modules}
           renderItem={({ item }) => (
-            <ModuleCard
-              key={item.id}
-              id={item.id}
-              title={item.moduleName}
-              shortDescription={item.shortModuleDescription}
-              estimatedTime={item.estimatedTime}
-              totalTopics={item.totalTopics}
-              status={item.status}
-            />
+            <View className="relative">
+              <ModuleCard
+                key={item.id}
+                id={item.id}
+                title={item.moduleName}
+                shortDescription={item.shortModuleDescription}
+                estimatedTime={item.estimatedTime}
+                totalTopics={item.totalTopics}
+                status={item.status}
+                cardType={'TRAINING'}
+                iconName={'precision-manufacturing'}
+              />
+              <View className="absolute top-[35px] right-[180px]">
+                <ModuleCard
+                  key={item.id}
+                  id={item.id}
+                  title={'General Function of depositor'}
+                  estimatedTime={5}
+                  status={item.status}
+                  cardType={'ASSESSMENT'}
+                  iconName={'quiz'}
+                />
+              </View>
+            </View>
           )}
           keyExtractor={(item) => item.id}
         />
