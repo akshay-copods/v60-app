@@ -42,7 +42,7 @@ export const ModuleCard = ({
           )}
           {status === 'COMPLETED' && (
             <View className="py-[6px] px-4 bg-[#EBF7F2] border border-[#32AE7F] rounded-md">
-              <Text className="text-sm text-[#008A56]">Locked</Text>
+              <Text className="text-sm text-[#008A56]">Completed</Text>
             </View>
           )}
         </View>
@@ -70,7 +70,7 @@ export const ModuleCard = ({
             </Text>
           </View>
         </View>
-        {status === 'PENDING' && (
+        {(status === 'PENDING' || status === 'COMPLETED') && (
           <View className="justify-start items-start mt-6">
             <Button
               buttonColor="#9E53DA"
@@ -83,7 +83,8 @@ export const ModuleCard = ({
                 })
               }
             >
-              Start
+              {status === 'PENDING' && 'Start'}
+              {status === 'COMPLETED' && 'Restart'}
             </Button>
           </View>
         )}

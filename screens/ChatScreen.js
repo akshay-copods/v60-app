@@ -50,9 +50,7 @@ export function ChatScreen() {
   const sendMessageToCloudFunction = async (message) => {
     try {
       const callCloud = httpsCallable(functions, 'capitalizeMessage');
-      callCloud(message).then((result) => {
-        console.log('Cloud function result:', result);
-      });
+      callCloud(message).then((result) => {});
     } catch (error) {
       console.error('Error sending message to cloud function:', error);
     }

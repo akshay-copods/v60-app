@@ -22,7 +22,6 @@ export function DetailsScreen() {
       const docRef = doc(db, 'modules', 'ruz9NkiUbTZRJalZf4Hv');
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log('Document data:', docSnap.data()?.modules);
         const formattedModules = docSnap.data()?.modules.map((module, i) => {
           return {
             ...module,
@@ -33,13 +32,10 @@ export function DetailsScreen() {
         setLoading(false);
       } else {
         setLoading(false);
-        console.log('No such document!');
       }
     }
     fetchData();
   }, []);
-
-  console.log(modules);
 
   return (
     <View className="items-center h-full overflow-scroll">

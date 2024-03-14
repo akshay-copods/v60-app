@@ -38,13 +38,6 @@ export function LoginScreen({ f }) {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.docs.length > 0) {
-      // User found
-      Toast.show({
-        type: 'success',
-        text1: 'Sign in successful.',
-        text2: 'Welcome to Machineator!',
-      });
-
       setLoading(false);
       signIn();
     } else {

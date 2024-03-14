@@ -185,4 +185,22 @@ export const useAppStore = create((set) => ({
     return useAppStore.getState().moduleData.find((module) => module.id === id)
       .ModuleContent;
   },
+
+  completeModule: (id) => {
+    let moduleDataCopy = useAppStore.getState().moduleData.map((module) => {
+      if (module.id === id && module.status === 'PENDING') {
+        return { ...module, status: 'COMPLETED' };
+      } else if (
+        Number(module.id) === Number(id) + 1 &&
+        module.status === 'LOCKED'
+      ) {
+        return { ...module, status: 'PENDING' };
+      }
+      return module;
+    });
+
+    set({
+      moduleData: moduleDataCopy,
+    });
+  },
 }));
