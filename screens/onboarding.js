@@ -175,7 +175,10 @@ export const Onboarding = () => {
               }}
               className="text-3xl font-semibold"
             >
-              Buckle up, {userName.charAt(0).toUpperCase()}!
+              Buckle up,{' '}
+              {userName.charAt(0).toUpperCase() +
+                userName.slice(1).toLowerCase()}
+              !
             </Animated.Text>
             <Animated.View
               style={{
