@@ -18,6 +18,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 import { Onboarding } from './screens/onboarding';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ExpertsScreen } from './screens/ExpertsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -105,6 +106,16 @@ function HomeStack() {
         }}
         name="Training"
         component={DetailsScreen}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarButtonComponent: () => null,
+          tabBarLabel: () => null,
+        }}
+        name="Experts"
+        component={ExpertsScreen}
       />
       <Tab.Screen
         options={{

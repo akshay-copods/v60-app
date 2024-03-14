@@ -14,7 +14,7 @@ import { db, functions } from '../firebaseConfig';
 
 export function ChatScreen() {
   const [messages, setMessages] = useState([]);
-
+  const [isTyping, setIsTyping] = useState(false);
   useEffect(() => {
     const messagesCollection = collection(db, 'chats');
     const q = query(messagesCollection, orderBy('createdAt', 'desc'));
@@ -48,9 +48,13 @@ export function ChatScreen() {
     [messages]
   );
   const sendMessageToCloudFunction = async (message) => {
+    setIsTyping(true);
     try {
       const callCloud = httpsCallable(functions, 'capitalizeMessage');
-      callCloud(message).then((result) => {});
+      callCloud(message).then((result) => {
+        console.log('Cloud function result:', result);
+        setIsTyping(false);
+      });
     } catch (error) {
       console.error('Error sending message to cloud function:', error);
     }
@@ -60,7 +64,7 @@ export function ChatScreen() {
       sendMessageToCloudFunction(message);
       addDoc(collection(db, 'chats'), {
         ...message,
-        createdAt: serverTimestamp(),
+        createdAt: Date.now(),
         id: Math.random(),
       });
     });
@@ -68,6 +72,7 @@ export function ChatScreen() {
 
   return (
     <GiftedChat
+      isTyping={isTyping}
       messages={messages}
       onSend={(messages) => onSend(messages)}
       user={{ _id: 2, name: 'User 2' }}

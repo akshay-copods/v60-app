@@ -82,7 +82,9 @@ export const IndividualModuleScreen = ({ route }) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setActiveModule(activeModule - 1)}
+                  onPress={() => {
+                    navigation.navigate('Experts');
+                  }}
                   className="bg-[#F0F2F4] px-4 py-2 rounded-lg self-start mt-4"
                 >
                   <Text className="text-[#9E53DA] text-center text-sm font-semibold">
