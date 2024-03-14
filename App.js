@@ -17,8 +17,9 @@ import { useAppStore } from './store';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 import { Onboarding } from './screens/onboarding';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { ExpertsScreen } from './screens/ExpertsScreen';
+import { ChatScreen } from './screens/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -92,6 +93,16 @@ function HomeStack() {
         }}
         name="Home"
         component={DetailsScreen}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarStyle: { display: 'none' },
+          tabBarButton: () => null,
+          tabBarButtonComponent: () => null,
+          tabBarLabel: () => null,
+        }}
       />
       <Tab.Screen
         options={{
