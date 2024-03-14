@@ -18,7 +18,6 @@ import { ChatScreen } from './screens/ChatScreen';
 import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 import { Onboarding } from './screens/onboarding';
-import { ExpertsScreen } from './screens/ExpertsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -76,7 +75,7 @@ function HomeStack() {
           );
         },
       }}
-      initialRouteName="Experts"
+      initialRouteName="Training"
     >
       <Tab.Screen
         options={{
@@ -91,20 +90,6 @@ function HomeStack() {
         }}
         name="Training"
         component={DetailsScreen}
-      />
-      <Tab.Screen
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <FontAwesome5
-              name="graduation-cap"
-              size={20}
-              color={focused ? '#9E53DA' : '#737E93'}
-            />
-          ),
-        }}
-        name="Experts"
-        component={ExpertsScreen}
       />
       <Tab.Screen
         name="Chat"
@@ -148,20 +133,20 @@ function App() {
 
         <SafeAreaView style={style.droidSafeArea}>
           <Stack.Navigator
-            initialRouteName={!isSignedIn ? 'login' : 'training'}
+            initialRouteName={!isSignedIn ? 'login' : 'onboarding'}
           >
-            {false ? (
+            {!isSignedIn ? (
               LoginStack()
             ) : (
               <>
-                {/* <Stack.Screen
+                <Stack.Screen
                   name="onboarding"
                   options={{
                     headerShown: false,
                     cardStyle: { backgroundColor: '#fbf6ff' },
                   }}
                   component={Onboarding}
-                /> */}
+                />
                 <Stack.Screen
                   name="training"
                   options={{ headerShown: false }}
