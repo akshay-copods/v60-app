@@ -248,6 +248,7 @@ export const ExpertsScreen = () => {
           <ScrollView className="flex" horizontal={true}>
             {MEETINGS_DATA.map((person) => (
               <MeetingsCard
+                key={person.id}
                 busy={person.busy}
                 name={person.name}
                 role={person.role}
@@ -315,6 +316,7 @@ export const ExpertsScreen = () => {
         >
           {REQUEST_EXPERTS.map((person) => (
             <RequestExpertCard
+              key={person.id}
               image={person.img}
               name={person.name}
               role={person.role}
@@ -340,6 +342,7 @@ export const ExpertsScreen = () => {
           <View style={{ gap: 16, flexDirection: 'row' }} horizontal={true}>
             {RECENT_MEETINGS.map((person) => (
               <MeetingsCard
+                key={person.id}
                 busy={person.busy}
                 image={person.img}
                 name={person.name}
