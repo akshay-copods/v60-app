@@ -17,8 +17,14 @@ export const IndividualModuleScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const module = useAppStore((state) => state.getModuleData);
+  const completeModule = useAppStore((state) => state.completeModule);
 
   const moduleData = module(id);
+
+  const completeTrainingModule = () => {
+    completeModule(id);
+    navigation.navigate('Training');
+  };
 
   return (
     <View className="items-start max-h-max overflow-scroll relative">
@@ -31,7 +37,7 @@ export const IndividualModuleScreen = ({ route }) => {
           />
         </View>
         <ScrollView className="w-full">
-          <View key={moduleData[activeModule].id} className="pt-8">
+          <View className="pt-8">
             <Text className="text-2xl font-extrabold text-purple-800 mb-4">
               TOPIC {moduleData[activeModule].id}:{' '}
               {moduleData[activeModule].title}
@@ -42,19 +48,81 @@ export const IndividualModuleScreen = ({ route }) => {
             <Text className="text-base font-normal text-gray-800 leading-relaxed">
               {moduleData[activeModule].content}
             </Text>
-            {/* {moduleData[activeModule].id === module(id).length - 1 && ( */}
-            <View className="mt-10">
+
+            {activeModule === 0 && (
               <TouchableOpacity
-                onPress={() => navigation.navigate('Chat')}
-                className="bg-[#F0F2F4] px-12 py-3 rounded-lg w-[262px]"
+                onPress={() => setActiveModule(activeModule + 1)}
+                className="bg-[#9E53DA] px-12 py-3 rounded-lg mt-12 self-start"
               >
-                <Text className="text-[#9E53DA] text-center font-bold">
-                  Ask Question To ProdAi
+                <Text className="text-[#F0F2F4] text-center font-bold">
+                  Next Topic ({Number(moduleData[activeModule].id) + 1}/
+                  {moduleData.length}
+                  ): {moduleData[activeModule + 1].title}
                 </Text>
               </TouchableOpacity>
-            </View>
-            {/* )} */}
-            {/* {moduleData[activeModule].id !== module(id).length - 1 && ()} */}
+            )}
+            {activeModule === moduleData.length - 1 && (
+              <View className="mt-10">
+                <TouchableOpacity
+                  onPress={completeTrainingModule}
+                  className="bg-[#9E53DA] px-4 py-2 rounded-lg self-start"
+                >
+                  <Text className="text-[#F0F2F4] text-center text-sm font-semibold">
+                    Complete Training
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setActiveModule(activeModule - 1)}
+                  className="bg-[#F0F2F4] px-4 py-2 rounded-lg self-start mt-4"
+                >
+                  <Text className="text-[#9E53DA] text-center text-sm font-semibold">
+                    Previous Topic ({Number(moduleData[activeModule].id) - 1}/
+                    {moduleData.length}
+                    ): {moduleData[activeModule - 1].title}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setActiveModule(activeModule - 1)}
+                  className="bg-[#F0F2F4] px-4 py-2 rounded-lg self-start mt-4"
+                >
+                  <Text className="text-[#9E53DA] text-center text-sm font-semibold">
+                    I have Doubts: Talk to Experts
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Chat')}
+                  className="bg-[#F0F2F4] px-4 py-2 rounded-lg self-start mt-4"
+                >
+                  <Text className="text-[#9E53DA] text-center text-sm font-semibold">
+                    Ask Question To ProdAi
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {activeModule > 0 && activeModule < moduleData.length - 1 && (
+              <View className="mt-10">
+                <TouchableOpacity
+                  onPress={() => setActiveModule(activeModule + 1)}
+                  className="bg-[#9E53DA] px-4 py-2 rounded-lg self-start"
+                >
+                  <Text className="text-[#F0F2F4] text-center text-sm font-semibold">
+                    Next Topic ({Number(moduleData[activeModule].id) + 1}/
+                    {moduleData.length}
+                    ): {moduleData[activeModule + 1].title}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setActiveModule(activeModule - 1)}
+                  className="bg-[#9E53DA] px-4 py-2 rounded-lg self-start mt-4"
+                >
+                  <Text className="text-[#F0F2F4] text-center text-sm font-semibold">
+                    Previous Topic ({Number(moduleData[activeModule].id) - 1}/
+                    {moduleData.length}
+                    ): {moduleData[activeModule - 1].title}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </ScrollView>
       </View>

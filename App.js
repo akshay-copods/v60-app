@@ -14,10 +14,11 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DetailsScreen } from './screens/DetailsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAppStore } from './store';
-import { ChatScreen } from './screens/ChatScreen';
 import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 import { Onboarding } from './screens/onboarding';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -65,7 +66,7 @@ function HomeStack() {
             <Text
               style={{
                 color: tab.focused ? '#9E53DA' : '#737E93',
-                fontSize: 16,
+                fontSize: 13,
                 fontWeight: 'bold',
                 marginLeft: 20,
               }}
@@ -82,6 +83,20 @@ function HomeStack() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
+              name="home"
+              size={20}
+              color={focused ? '#9E53DA' : '#737E93'}
+            />
+          ),
+        }}
+        name="Home"
+        component={DetailsScreen}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
               name="graduation-cap"
               size={20}
               color={focused ? '#9E53DA' : '#737E93'}
@@ -92,18 +107,32 @@ function HomeStack() {
         component={DetailsScreen}
       />
       <Tab.Screen
-        name="Chat"
-        component={ChatScreen}
         options={{
-          tabBarStyle: { display: 'none' },
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Entypo
-              name="chat"
+            <MaterialCommunityIcons
+              name="gauge-empty"
               size={20}
               color={focused ? '#9E53DA' : '#737E93'}
             />
           ),
         }}
+        name="Monitoring"
+        component={DetailsScreen}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="dots-horizontal-circle-outline"
+              size={20}
+              color={focused ? '#9E53DA' : '#737E93'}
+            />
+          ),
+        }}
+        name="More"
+        component={DetailsScreen}
       />
     </Tab.Navigator>
   );

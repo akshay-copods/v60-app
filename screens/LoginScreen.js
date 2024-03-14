@@ -1,4 +1,11 @@
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import * as React from 'react';
 import { useState } from 'react';
@@ -17,7 +24,10 @@ export function LoginScreen({ f }) {
   const [password, showPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const signIn = useAppStore((state) => state.signIn);
+  const setSignedInUser = useAppStore((state) => state.setSignedInUser);
   const navigation = useNavigation();
+  const setModules = useAppStore((state) => state.setModuleData);
+  const setMachineName = useAppStore((state) => state.setMachineName);
 
   async function loginUser(details) {
     if (!details.username || !details.password) {
@@ -38,14 +48,9 @@ export function LoginScreen({ f }) {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.docs.length > 0) {
-      // User found
-      Toast.show({
-        type: 'success',
-        text1: 'Sign in successful.',
-        text2: 'Welcome to Machineator!',
-      });
-
+      fetchData();
       setLoading(false);
+      setSignedInUser(details.username);
       signIn();
     } else {
       setLoading(false);
@@ -54,6 +59,27 @@ export function LoginScreen({ f }) {
         text1: 'Sign in failed.',
         text2: 'User not found or password incorrect.',
       });
+    }
+  }
+
+  async function fetchData() {
+    setLoading(true);
+    const docRef = doc(db, 'modules', 'gzalk5TUhkei3SbLgLSm');
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const formattedModules = docSnap.data()?.modules.map((module, i) => {
+        return {
+          ...module,
+          status: i === 0 ? 'PENDING' : 'LOCKED',
+        };
+      });
+      const machineName = docSnap.data()?.machineName;
+
+      setMachineName(machineName);
+      setModules(formattedModules);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   }
 
