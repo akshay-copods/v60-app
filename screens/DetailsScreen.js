@@ -19,7 +19,11 @@ export function DetailsScreen() {
         <FlatList
           data={modules}
           renderItem={({ item }) => (
-            <View className="relative">
+            <View
+              className={`relative ${
+                Number(item.id) === modules.length ? 'pb-16' : ''
+              }`}
+            >
               <ModuleCard
                 key={item.id}
                 id={item.id}

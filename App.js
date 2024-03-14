@@ -14,7 +14,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DetailsScreen } from './screens/DetailsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAppStore } from './store';
-import { FontAwesome5, Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { IndividualModuleScreen } from './screens/IndividualModuleScreen';
 import { Onboarding } from './screens/onboarding';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
