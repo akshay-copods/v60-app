@@ -23,7 +23,13 @@ export function DetailsScreen() {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data()?.modules);
-        setModules(docSnap.data()?.modules);
+        const formattedModules = docSnap.data()?.modules.map((module, i) => {
+          return {
+            ...module,
+            status: i === 0 ? 'PENDING' : 'LOCKED',
+          };
+        });
+        setModules(formattedModules);
         setLoading(false);
       } else {
         setLoading(false);
@@ -32,6 +38,8 @@ export function DetailsScreen() {
     }
     fetchData();
   }, []);
+
+  console.log(modules);
 
   return (
     <View className="items-center h-full overflow-scroll">
@@ -55,6 +63,7 @@ export function DetailsScreen() {
                 shortDescription={item.shortModuleDescription}
                 estimatedTime={item.estimatedTime}
                 totalTopics={item.totalTopics}
+                status={item.status}
               />
             )}
             keyExtractor={(item) => item.id}

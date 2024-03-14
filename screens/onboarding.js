@@ -236,7 +236,7 @@ export const Onboarding = () => {
                 className="bg-[#9E53DA] px-8 py-3 rounded-lg mt-4 w-52"
               >
                 <Text className="text-white text-center font-bold">
-                  Get Started
+                  Proceed to Training
                 </Text>
               </TouchableOpacity>
             </Animated.View>

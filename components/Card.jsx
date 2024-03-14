@@ -10,6 +10,7 @@ export const ModuleCard = ({
   id,
   estimatedTime,
   totalTopics,
+  status,
 }) => {
   const navigation = useNavigation();
 
@@ -29,12 +30,21 @@ export const ModuleCard = ({
               TRAINING {id}
             </Text>
           </View>
-          <View className="py-[6px] px-4 bg-[#FFF2E4] border border-[#E1AF74] rounded-md">
-            <Text className="text-sm text-[#3A4355]">Pending</Text>
-          </View>
-          {/* <View className="py-[6px] px-4 bg-[#E2E5E9] border border-[#A1A9B8] rounded-md">
-          <Text className="text-sm text-[#3A4355]">Locked</Text>
-        </View> */}
+          {status === 'PENDING' && (
+            <View className="py-[6px] px-4 bg-[#FFF2E4] border border-[#E1AF74] rounded-md">
+              <Text className="text-sm text-[#3A4355]">Pending</Text>
+            </View>
+          )}
+          {status === 'LOCKED' && (
+            <View className="py-[6px] px-4 bg-[#E2E5E9] border border-[#A1A9B8] rounded-md">
+              <Text className="text-sm text-[#3A4355]">Locked</Text>
+            </View>
+          )}
+          {status === 'COMPLETED' && (
+            <View className="py-[6px] px-4 bg-[#EBF7F2] border border-[#32AE7F] rounded-md">
+              <Text className="text-sm text-[#008A56]">Locked</Text>
+            </View>
+          )}
         </View>
         <View className="mt-6">
           <Text className="text-[#3A4355] text-lg font-medium">{title}</Text>
@@ -60,21 +70,23 @@ export const ModuleCard = ({
             </Text>
           </View>
         </View>
-        <View className="justify-start items-start mt-6">
-          <Button
-            buttonColor="#9E53DA"
-            className="rounded-md"
-            mode="contained"
-            onPress={() =>
-              navigation.navigate('individual_module', {
-                id,
-                trainingTitle: title,
-              })
-            }
-          >
-            Start
-          </Button>
-        </View>
+        {status === 'PENDING' && (
+          <View className="justify-start items-start mt-6">
+            <Button
+              buttonColor="#9E53DA"
+              className="rounded-md"
+              mode="contained"
+              onPress={() =>
+                navigation.navigate('individual_module', {
+                  id,
+                  trainingTitle: title,
+                })
+              }
+            >
+              Start
+            </Button>
+          </View>
+        )}
       </Card.Content>
     </Card>
   );
