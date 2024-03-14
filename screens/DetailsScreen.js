@@ -9,6 +9,7 @@ import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../components/Header';
 import { useAppStore } from '../store';
+import { ChatButton } from '../components/ChatButton';
 
 export function DetailsScreen() {
   const [loading, setLoading] = useState(true);
@@ -66,6 +67,7 @@ export function DetailsScreen() {
           />
         </View>
       )}
+      <ChatButton />
     </View>
   );
 }
