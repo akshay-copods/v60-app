@@ -228,9 +228,8 @@ export const Onboarding = () => {
               style={{ opacity: buttonFadeAnim2 }}
               className="text-2xl mt-12 font-normal"
             >
-              From the basics to advanced techniques, you’ll become a{''}
-              {machineName}
-              expert.
+              From the basics to advanced techniques, you’ll become a{' '}
+              {machineName} expert.
             </Animated.Text>
             <Animated.Text
               style={{ opacity: buttonFadeAnim2 }}

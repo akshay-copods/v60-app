@@ -9,6 +9,8 @@ import { ChatButton } from '../components/ChatButton';
 export function DetailsScreen() {
   const modules = useAppStore((state) => state.moduleData);
 
+  console.log(modules);
+
   return (
     <View className="items-center h-full overflow-scroll">
       <Header title={'Training'} />
@@ -35,17 +37,19 @@ export function DetailsScreen() {
                 cardType={'TRAINING'}
                 iconName={'precision-manufacturing'}
               />
-              <View className="absolute top-[35px] right-[180px]">
-                <ModuleCard
-                  key={item.id}
-                  id={item.id}
-                  title={'General Function of depositor'}
-                  estimatedTime={5}
-                  status={item.status}
-                  cardType={'ASSESSMENT'}
-                  iconName={'quiz'}
-                />
-              </View>
+              {item.status === 'COMPLETED' && (
+                <View className="absolute top-[35px] right-[180px]">
+                  <ModuleCard
+                    key={item.id}
+                    id={item.id}
+                    title={item.moduleName}
+                    estimatedTime={item.assessment.estimatedTime}
+                    status={item.assessment.status}
+                    cardType={'ASSESSMENT'}
+                    iconName={'quiz'}
+                  />
+                </View>
+              )}
             </View>
           )}
           keyExtractor={(item) => item.id}

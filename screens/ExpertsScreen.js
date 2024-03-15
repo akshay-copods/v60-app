@@ -1,19 +1,15 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { Header } from '../components/Header';
-import { Avatar, Button, Card, Icon, Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Chip } from 'react-native-paper';
-import {
-  FontAwesome5,
-  MaterialIcons,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   MEETINGS_DATA,
   RECENT_MEETINGS,
   REQUEST_EXPERTS,
 } from './ExpertsScreenMockData';
+import { useNavigation } from '@react-navigation/native';
 
 const CardBusyChip = () => {
   return (
@@ -44,6 +40,7 @@ const CardBusyChip = () => {
     </View>
   );
 };
+
 const CardAvailableChip = () => {
   return (
     <View
@@ -58,7 +55,6 @@ const CardAvailableChip = () => {
         height: 24,
         flexDirection: 'row',
         alignSelf: 'flex-start',
-        alignItems: 'center',
       }}
     >
       <MaterialIcons name="fiber-manual-record" size={16} color="#32AE7F" />
@@ -66,7 +62,6 @@ const CardAvailableChip = () => {
         style={{
           fontSize: 12,
           color: '#008A56',
-          lineHeight: 20,
         }}
       >
         {' '}
@@ -75,6 +70,7 @@ const CardAvailableChip = () => {
     </View>
   );
 };
+
 const MeetingsCard = ({ busy, name, role, time, image }) => {
   return (
     <View className="w-96 px-5 py-6 bg-white rounded-2xl">
@@ -129,6 +125,7 @@ const MeetingsCard = ({ busy, name, role, time, image }) => {
     </View>
   );
 };
+
 const RequestExpertCard = ({ image, name, role }) => {
   return (
     <View
@@ -220,139 +217,156 @@ const RequestExpertCard = ({ image, name, role }) => {
     </View>
   );
 };
+
 export const ExpertsScreen = () => {
+  const navigate = useNavigation();
+
   return (
-    <ScrollView style={{}} className="h-full">
-      <Header title={'Talk to Experts'} />
-      {/* Meeting cards */}
-      <View
-        style={{
-          paddingHorizontal: 24,
-          paddingVertical: 24,
-        }}
-      >
-        <View
-          style={{
-            gap: 12,
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: '600',
-              color: '#3A4355',
-              fontSize: 18,
-            }}
+    <>
+      <View className="flex-row justify-between items-center w-full p-4 bg-white">
+        <Text className="text-[#3A4355] text-3xl font-semibold">
+          Talk to Experts
+        </Text>
+        <View className="flex-row">
+          <TouchableOpacity
+            onPress={() => navigate.navigate('training')}
+            className="h-5 w-5 items-center justify-center"
           >
-            Scheduled Meetings
-          </Text>
-          <ScrollView className="flex" horizontal={true}>
-            {MEETINGS_DATA.map((person) => (
-              <MeetingsCard
-                key={person.id}
-                busy={person.busy}
-                name={person.name}
-                role={person.role}
-                time={person.time}
-                image={person.img}
-              />
-            ))}
-          </ScrollView>
+            <MaterialIcons name="cancel" size={20} color="black" />
+          </TouchableOpacity>
         </View>
-        {/* Blue Banner */}
+      </View>
+      <ScrollView style={{}} className="h-full">
+        {/* Meeting cards */}
         <View
           style={{
-            alignSelf: 'flex-start',
-            borderRadius: 8,
-            backgroundColor: '#7FCDE533',
-            flexDirection: 'row',
-            gap: 33,
-            alignItems: 'center',
-            paddingHorizontal: 22,
-            paddingVertical: 18,
-            marginTop: 24,
+            paddingHorizontal: 24,
+            paddingVertical: 24,
           }}
         >
           <View
             style={{
-              gap: 8,
-              flexDirection: 'column',
+              gap: 12,
             }}
           >
             <Text
               style={{
-                fontSize: 20,
                 fontWeight: '600',
+                color: '#3A4355',
+                fontSize: 18,
               }}
             >
-              Have Doubts?{' '}
+              Scheduled Meetings
             </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: '400',
-              }}
-            >
-              Try Raising You hand and someone with answer.{' '}
-            </Text>
+            <ScrollView className="flex" horizontal={true}>
+              {MEETINGS_DATA.map((person) => (
+                <MeetingsCard
+                  key={person.id}
+                  busy={person.busy}
+                  name={person.name}
+                  role={person.role}
+                  time={person.time}
+                  image={person.img}
+                />
+              ))}
+            </ScrollView>
           </View>
-          <Button
-            mode="contained"
+          {/* Blue Banner */}
+          <View
             style={{
-              backgroundColor: '#9E53DA',
+              alignSelf: 'flex-start',
               borderRadius: 8,
-              height: 40,
+              backgroundColor: '#7FCDE533',
+              flexDirection: 'row',
+              gap: 33,
+              alignItems: 'center',
+              paddingHorizontal: 22,
+              paddingVertical: 18,
+              marginTop: 24,
             }}
           >
-            Raise Hand
-          </Button>
-        </View>
-        {/* Request experts card */}
-        <View
-          style={{
-            gap: 12,
-            marginTop: 44,
-            flexDirection: 'row',
-          }}
-        >
-          {REQUEST_EXPERTS.map((person) => (
-            <RequestExpertCard
-              key={person.id}
-              image={person.img}
-              name={person.name}
-              role={person.role}
-            />
-          ))}
-        </View>
-        {/* Recent meeting cards */}
-        <View
-          style={{
-            marginTop: 32,
-            gap: 12,
-          }}
-        >
-          <Text
+            <View
+              style={{
+                gap: 8,
+                flexDirection: 'column',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '600',
+                }}
+              >
+                Have Doubts?{' '}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: '400',
+                }}
+              >
+                Try Raising You hand and someone with answer.{' '}
+              </Text>
+            </View>
+            <Button
+              mode="contained"
+              style={{
+                backgroundColor: '#9E53DA',
+                borderRadius: 8,
+                height: 40,
+              }}
+            >
+              Raise Hand
+            </Button>
+          </View>
+          {/* Request experts card */}
+          <View
             style={{
-              fontWeight: '600',
-              color: '#3A4355',
-              fontSize: 18,
+              gap: 12,
+              marginTop: 44,
+              flexDirection: 'row',
             }}
           >
-            Recent Meetings{' '}
-          </Text>
-          <View style={{ gap: 16, flexDirection: 'row' }} horizontal={true}>
-            {RECENT_MEETINGS.map((person) => (
-              <MeetingsCard
+            {REQUEST_EXPERTS.map((person) => (
+              <RequestExpertCard
                 key={person.id}
-                busy={person.busy}
                 image={person.img}
                 name={person.name}
                 role={person.role}
-                time={person.time}
               />
             ))}
           </View>
+          {/* Recent meeting cards */}
+          <View
+            style={{
+              marginTop: 32,
+              gap: 12,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: '600',
+                color: '#3A4355',
+                fontSize: 18,
+              }}
+            >
+              Recent Meetings{' '}
+            </Text>
+            <View style={{ gap: 16, flexDirection: 'row' }} horizontal={true}>
+              {RECENT_MEETINGS.map((person) => (
+                <MeetingsCard
+                  key={person.id}
+                  busy={person.busy}
+                  image={person.img}
+                  name={person.name}
+                  role={person.role}
+                  time={person.time}
+                />
+              ))}
+            </View>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };

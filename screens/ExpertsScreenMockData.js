@@ -34,4 +34,22 @@ export const REQUEST_EXPERTS = [
     role: 'Supervisor Production Line',
     img: 'https://xsgames.co/randomusers/avatar.php?g=female',
   },
+  {
+    id: 5,
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
+  },
+  {
+    id: 6,
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=female',
+  },
+  {
+    id: 7,
+    name: 'Georgia Samuels',
+    role: 'Supervisor Production Line',
+    img: 'https://xsgames.co/randomusers/avatar.php?g=male',
+  },
 ];

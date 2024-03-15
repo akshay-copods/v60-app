@@ -85,12 +85,16 @@ export const ModuleCard = ({
               buttonColor="#9E53DA"
               className="rounded-md"
               mode="contained"
-              onPress={() =>
-                navigation.navigate('individual_module', {
-                  id,
-                  trainingTitle: title,
-                })
-              }
+              onPress={() => {
+                if (cardType === 'ASSESSMENT') {
+                  navigation.navigate('assessment');
+                } else {
+                  navigation.navigate('individual_module', {
+                    id,
+                    trainingTitle: title,
+                  });
+                }
+              }}
             >
               {status === 'PENDING' && 'Start'}
               {status === 'COMPLETED' && 'Restart'}

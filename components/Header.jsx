@@ -43,7 +43,9 @@ export const Header = ({ title, trainingTitle }) => {
           />
         </View>
         <View className="ml-3">
-          <Text className="text-[#8A94A5] text-sm">TRAINING</Text>
+          <Text className="text-[#8A94A5] text-sm tracking-[3px]">
+            TRAINING
+          </Text>
           <Text className="text-[#3A4355] text-lg">{trainingTitle}</Text>
         </View>
       </View>
