@@ -87,7 +87,10 @@ export const ModuleCard = ({
               mode="contained"
               onPress={() => {
                 if (cardType === 'ASSESSMENT') {
-                  navigation.navigate('assessment');
+                  navigation.navigate('assessment', {
+                    id,
+                    trainingTitle: title,
+                  });
                 } else {
                   navigation.navigate('individual_module', {
                     id,

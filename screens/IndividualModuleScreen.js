@@ -61,7 +61,7 @@ export const IndividualModuleScreen = ({ route }) => {
                 </Text>
               </TouchableOpacity>
             )}
-            {activeModule === moduleData.length - 1 && (
+            {activeModule === moduleData?.length - 1 && (
               <View className="mt-10">
                 <TouchableOpacity
                   onPress={completeTrainingModule}

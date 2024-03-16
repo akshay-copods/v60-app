@@ -207,4 +207,9 @@ export const useAppStore = create((set) => ({
       moduleData: moduleDataCopy,
     });
   },
+
+  getModuleAssessment: (id) => {
+    return useAppStore.getState().moduleData.find((module) => module.id === id)
+      .assessment;
+  },
 }));
