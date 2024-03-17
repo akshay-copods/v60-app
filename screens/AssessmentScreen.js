@@ -15,6 +15,7 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { useAppStore } from '../store';
+import { useNavigation } from '@react-navigation/native';
 
 export const ProgressBar = ({ totalQuestions, activeQuestion }) => {
   const width = ((activeQuestion + 1) / totalQuestions?.length) * 100;
@@ -124,7 +125,7 @@ export const BottomDrawer = ({ isOpen, handleNextQuestion, question }) => {
                     userName.slice(1).toLowerCase()}
                   ..!!
                 </Text>
-                <Text className="text-black text-lg font-normal mt-4">
+                <Text className="text-black text-lg font-normal mt-4 w-[900px]">
                   {question?.info ?? 'NO INFO COMING FROM DB'}
                 </Text>
                 <TouchableOpacity onPress={handleNextQuestion}>
@@ -172,6 +173,13 @@ export const AssessmentScreen = ({ route }) => {
   const updateModuleAssessment = useAppStore(
     (state) => state.updateModuleAssessment
   );
+  const machineName = useAppStore((state) => state.machineName);
+  const userName = useAppStore((state) => state.signedInUser);
+  const completeModuleAssessment = useAppStore(
+    (state) => state.completeModuleAssessment
+  );
+
+  const navigate = useNavigation();
 
   useEffect(() => {
     setAssessmentData(getModuleAssessment(id));
@@ -216,6 +224,11 @@ export const AssessmentScreen = ({ route }) => {
         (question) => !question.isCorrect
       ),
     });
+  };
+
+  const completeAssessment = () => {
+    completeModuleAssessment(id);
+    navigate.navigate('Training');
   };
 
   return (
@@ -313,10 +326,14 @@ export const AssessmentScreen = ({ route }) => {
               </View>
               <View className="px-6 py-3 bg-white border-[#E5E5E5] border-2 rounded-2xl w-[673px] mt-[-48px] ml-[20px]">
                 <Text className="text-[#3C3C3C] text-[32px] font-medium text-center">
-                  Congratulations, Otis!
+                  Congratulations,{' '}
+                  {userName.charAt(0).toUpperCase() +
+                    userName.slice(1).toLowerCase()}
+                  !
                 </Text>
                 <Text className="text-[#3C3C3C] text-[20px] font-normal text-center mt-2">
-                  You’ve conquered the assessment like a seasoned depositor pro.
+                  You’ve conquered the assessment like a seasoned {machineName}{' '}
+                  pro.
                 </Text>
               </View>
               <View
@@ -376,7 +393,7 @@ export const AssessmentScreen = ({ route }) => {
               </View>
             </View>
             <TouchableOpacity
-              onPress={() => alert('Assessment Completed')}
+              onPress={completeAssessment}
               className="bg-[#9E53DA] w-[262px] rounded-md mt-12"
             >
               <Text className="text-sm font-semibold text-center text-white py-2">
@@ -392,7 +409,7 @@ export const AssessmentScreen = ({ route }) => {
                 style={{ gap: 22 }}
               >
                 <TouchableOpacity
-                  onPress={() => alert('Assessment Completed')}
+                  onPress={() => navigate.navigate('Experts')}
                   className="bg-[#F0F2F4] w-[262px] rounded-md"
                 >
                   <Text className="text-sm font-semibold text-center text-[#9E53DA] py-2">
@@ -400,7 +417,7 @@ export const AssessmentScreen = ({ route }) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => alert('Assessment Completed')}
+                  onPress={() => navigate.navigate('Chat')}
                   className="bg-[#F0F2F4] w-[262px] rounded-md"
                 >
                   <Text className="text-sm font-semibold text-center text-[#9E53DA] py-2">

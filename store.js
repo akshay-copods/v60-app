@@ -225,4 +225,20 @@ export const useAppStore = create((set) => ({
       moduleData: moduleDataCopy,
     });
   },
+
+  completeModuleAssessment: (id) => {
+    let moduleDataCopy = useAppStore.getState().moduleData.map((module) => {
+      if (module.id === id) {
+        return {
+          ...module,
+          assessment: { ...module.assessment, status: 'COMPLETED' },
+        };
+      }
+      return module;
+    });
+
+    set({
+      moduleData: moduleDataCopy,
+    });
+  },
 }));
