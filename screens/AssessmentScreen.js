@@ -306,8 +306,7 @@ export const AssessmentScreen = ({ route }) => {
             <View className="mt-[51px] relative">
               <View className="flex-row items-center">
                 <Image
-                  // source={require('../assets/confetti.gif')}
-                  source={require('../assets/end-assessment-icon.png')}
+                  source={require('../assets/confetti.gif')}
                   style={{ width: 206, height: 206 }}
                 />
                 <Avatar.Image
@@ -315,8 +314,7 @@ export const AssessmentScreen = ({ route }) => {
                   source={require('../assets/end-assessment-icon.png')}
                 />
                 <Image
-                  // source={require('../assets/confetti.gif')}
-                  source={require('../assets/end-assessment-icon.png')}
+                  source={require('../assets/confetti.gif')}
                   style={{
                     width: 206,
                     height: 206,
