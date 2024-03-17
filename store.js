@@ -212,4 +212,17 @@ export const useAppStore = create((set) => ({
     return useAppStore.getState().moduleData.find((module) => module.id === id)
       .assessment;
   },
+
+  updateModuleAssessment: (id, assessment) => {
+    let moduleDataCopy = useAppStore.getState().moduleData.map((module) => {
+      if (module.id === id) {
+        return { ...module, assessment };
+      }
+      return module;
+    });
+
+    set({
+      moduleData: moduleDataCopy,
+    });
+  },
 }));

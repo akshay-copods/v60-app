@@ -1,6 +1,7 @@
 import {
   Animated,
-  StyleSheet,
+  Image,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -8,7 +9,11 @@ import {
 import { Header } from '../components/Header';
 import { Avatar, RadioButton } from 'react-native-paper';
 import { useEffect, useRef, useState } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import {
+  MaterialIcons,
+  Ionicons,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 import { useAppStore } from '../store';
 
 export const ProgressBar = ({ totalQuestions, activeQuestion }) => {
@@ -164,6 +169,9 @@ export const AssessmentScreen = ({ route }) => {
   const { id, trainingTitle } = route.params;
 
   const getModuleAssessment = useAppStore((state) => state.getModuleAssessment);
+  const updateModuleAssessment = useAppStore(
+    (state) => state.updateModuleAssessment
+  );
 
   useEffect(() => {
     setAssessmentData(getModuleAssessment(id));
@@ -186,55 +194,224 @@ export const AssessmentScreen = ({ route }) => {
   };
 
   const handleNextQuestion = () => {
-    setActiveQuestion((prevState) => prevState + 1);
-    setUserAnswer(null);
     setIsOpen(false);
+    setTimeout(() => {
+      setActiveQuestion((prevState) => prevState + 1);
+      setUserAnswer(null);
+    }, 500);
+  };
+
+  useEffect(() => {
+    setUserAnswer(
+      assessmentData?.questions?.[activeQuestion]?.userAnswer ?? null
+    );
+    updateModuleAssessment(id, assessmentData);
+  }, [assessmentData, activeQuestion]);
+
+  const handleRestartQuiz = () => {
+    setActiveQuestion(0);
+    setAssessmentData({
+      ...assessmentData,
+      questions: assessmentData?.questions?.filter(
+        (question) => !question.isCorrect
+      ),
+    });
   };
 
   return (
     <View className="items-center h-full overflow-scroll">
       <Header trainingTitle={trainingTitle} />
-      <View className="pt-8 pb-[60px] px-[92px] w-full h-full">
-        <ProgressBar
-          totalQuestions={assessmentData?.questions}
-          activeQuestion={activeQuestion}
-        />
-        <View className="w-full mt-3">
-          <Text className="text-[#737E93] text-sm font-normal">
-            {activeQuestion + 1} of {assessmentData?.questions?.length}{' '}
-            Questions
-          </Text>
-        </View>
-        <View className="flex-1 flex-row mt-12" style={{ gap: 28 }}>
-          <Avatar.Image
-            size={64}
-            source={require('../assets/assessment-icon.png')}
-            className="bg-[#F5F5F5]"
-          />
-          <QuestionAnswers
+      {assessmentData?.questions?.[activeQuestion] ? (
+        <>
+          <View className="pt-8 pb-[60px] px-[92px] w-full h-full">
+            <ProgressBar
+              totalQuestions={assessmentData?.questions}
+              activeQuestion={activeQuestion}
+            />
+            <View className="w-full mt-3">
+              <Text className="text-[#737E93] text-sm font-normal">
+                {activeQuestion + 1} of {assessmentData?.questions?.length}{' '}
+                Questions
+              </Text>
+            </View>
+            <View className="flex-1 flex-row mt-12" style={{ gap: 28 }}>
+              <Avatar.Image
+                size={64}
+                source={require('../assets/assessment-icon.png')}
+                className="bg-[#F5F5F5]"
+              />
+              <QuestionAnswers
+                question={assessmentData?.questions?.[activeQuestion]}
+                userAnswer={userAnswer}
+                setUserAnswer={setUserAnswer}
+              />
+            </View>
+            <TouchableOpacity disabled={userAnswer === null ? false : true}>
+              <Text
+                onPress={() => handleAnswerSubmit()}
+                className={`${
+                  userAnswer === null
+                    ? 'bg-[#F0F2F4] text-[#A1A9B8]'
+                    : 'bg-[#9E53DA] text-white'
+                }  text-sm font-semibold mb-[60px] text-center self-start py-3 w-[262px] rounded-md`}
+              >
+                Submit
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <BottomDrawer
+            isOpen={isOpen}
+            handleNextQuestion={handleNextQuestion}
             question={assessmentData?.questions?.[activeQuestion]}
-            userAnswer={userAnswer}
-            setUserAnswer={setUserAnswer}
           />
-        </View>
-        <TouchableOpacity disabled={userAnswer === null ? false : true}>
-          <Text
-            onPress={() => handleAnswerSubmit()}
-            className={`${
-              userAnswer === null
-                ? 'bg-[#F0F2F4] text-[#A1A9B8]'
-                : 'bg-[#9E53DA] text-white'
-            }  text-sm font-semibold mb-[60px] text-center self-start py-3 w-[262px] rounded-md`}
+        </>
+      ) : assessmentData?.questions?.some((question) => !question.isCorrect) ? (
+        <View className="h-full w-full items-center">
+          <View className="mt-[131px] relative">
+            <Avatar.Image
+              size={309}
+              source={require('../assets/assessment-reset.png')}
+            />
+            <View className="px-6 py-3 bg-white border-[#E5E5E5] border-2 rounded-2xl w-[365px] absolute bottom-[-10px] left-[-27px]">
+              <Text className="text-[#3C3C3C] text-[17px] font-medium text-center">
+                Let's review the exercises you missed! Try to correct them.
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={handleRestartQuiz}
+            className="bg-[#9E53DA] w-[262px] rounded-md mt-[106px]"
           >
-            Submit
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <BottomDrawer
-        isOpen={isOpen}
-        handleNextQuestion={handleNextQuestion}
-        question={assessmentData?.questions?.[activeQuestion]}
-      />
+            <Text className="text-sm font-semibold text-center text-white py-2">
+              Continue
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <ScrollView className="w-full">
+          <View className="w-full items-center">
+            <View className="mt-[51px] relative">
+              <View className="flex-row items-center">
+                <Image
+                  // source={require('../assets/confetti.gif')}
+                  source={require('../assets/end-assessment-icon.png')}
+                  style={{ width: 206, height: 206 }}
+                />
+                <Avatar.Image
+                  size={309}
+                  source={require('../assets/end-assessment-icon.png')}
+                />
+                <Image
+                  // source={require('../assets/confetti.gif')}
+                  source={require('../assets/end-assessment-icon.png')}
+                  style={{
+                    width: 206,
+                    height: 206,
+                    transform: [{ rotate: '270deg' }],
+                  }}
+                />
+              </View>
+              <View className="px-6 py-3 bg-white border-[#E5E5E5] border-2 rounded-2xl w-[673px] mt-[-48px] ml-[20px]">
+                <Text className="text-[#3C3C3C] text-[32px] font-medium text-center">
+                  Congratulations, Otis!
+                </Text>
+                <Text className="text-[#3C3C3C] text-[20px] font-normal text-center mt-2">
+                  You’ve conquered the assessment like a seasoned depositor pro.
+                </Text>
+              </View>
+              <View
+                className="flex-row items-center ml-[21px] mt-4"
+                style={{ gap: 17 }}
+              >
+                {[
+                  {
+                    title: 'Time Taken:',
+                    titleText: '5:30 min',
+                    icon: (
+                      <Ionicons
+                        name="alarm"
+                        size={24}
+                        color="#737E93"
+                        style={{ marginLeft: 20 }}
+                      />
+                    ),
+                  },
+                  {
+                    title: 'Assessment Score',
+                    titleText: '90%',
+                    icon: (
+                      <MaterialCommunityIcons
+                        name="file-percent-outline"
+                        size={24}
+                        color="#737E93"
+                        style={{ marginLeft: 20 }}
+                      />
+                    ),
+                  },
+                  {
+                    title: 'Assessment Goal',
+                    titleText: '1/30',
+                    icon: (
+                      <MaterialIcons
+                        name="flag"
+                        size={24}
+                        color="#737E93"
+                        style={{ marginLeft: 20 }}
+                      />
+                    ),
+                  },
+                ].map((star, index) => (
+                  <View
+                    key={index}
+                    className="border-2 border-[#E5E5E5] bg-white rounded-2xl flex-row items-center w-[212px] py-3"
+                    style={{ gap: 20 }}
+                  >
+                    {star.icon}
+                    <View className="items-start">
+                      <Text className="text-[#737E93] mb-1">{star.title}</Text>
+                      <Text>{star.titleText}</Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => alert('Assessment Completed')}
+              className="bg-[#9E53DA] w-[262px] rounded-md mt-12"
+            >
+              <Text className="text-sm font-semibold text-center text-white py-2">
+                Complete Assessment
+              </Text>
+            </TouchableOpacity>
+            <View className="items-center mt-11">
+              <Text className="text-[#3A4355] text-sm font-semibold">
+                Do you Have Doubts?
+              </Text>
+              <View
+                className="flex-row items-center mt-4 mb-11"
+                style={{ gap: 22 }}
+              >
+                <TouchableOpacity
+                  onPress={() => alert('Assessment Completed')}
+                  className="bg-[#F0F2F4] w-[262px] rounded-md"
+                >
+                  <Text className="text-sm font-semibold text-center text-[#9E53DA] py-2">
+                    Talk to Experts
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => alert('Assessment Completed')}
+                  className="bg-[#F0F2F4] w-[262px] rounded-md"
+                >
+                  <Text className="text-sm font-semibold text-center text-[#9E53DA] py-2">
+                    Ask Question to ProdAi
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };

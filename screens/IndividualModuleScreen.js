@@ -40,16 +40,16 @@ export const IndividualModuleScreen = ({ route }) => {
           <View className="pt-8">
             <Text className="text-2xl font-extrabold text-purple-800 mb-4">
               TOPIC {moduleData[activeModule].id}:{' '}
-              {moduleData[activeModule].title}
+              {moduleData[activeModule]?.title ?? 'No Title'}
             </Text>
             <Text className="text-lg font-semibold text-gray-600 mb-8">
-              {moduleData[activeModule].titleDescription}
+              {moduleData[activeModule]?.titleDescription ?? 'No Description'}
             </Text>
             <Text className="text-base font-normal text-gray-800 leading-relaxed">
               {moduleData[activeModule].content}
             </Text>
 
-            {activeModule === 0 && (
+            {activeModule === 0 && activeModule !== moduleData?.length - 1 && (
               <TouchableOpacity
                 onPress={() => setActiveModule(activeModule + 1)}
                 className="bg-[#9E53DA] px-12 py-3 rounded-lg mt-12 self-start"
@@ -57,7 +57,7 @@ export const IndividualModuleScreen = ({ route }) => {
                 <Text className="text-[#F0F2F4] text-center font-bold">
                   Next Topic ({Number(moduleData[activeModule].id) + 1}/
                   {moduleData.length}
-                  ): {moduleData[activeModule + 1].title}
+                  ): {moduleData[activeModule + 1]?.title ?? 'No Title'}
                 </Text>
               </TouchableOpacity>
             )}
@@ -78,7 +78,7 @@ export const IndividualModuleScreen = ({ route }) => {
                   <Text className="text-[#9E53DA] text-center text-sm font-semibold">
                     Previous Topic ({Number(moduleData[activeModule].id) - 1}/
                     {moduleData.length}
-                    ): {moduleData[activeModule - 1].title}
+                    ): {moduleData[activeModule - 1]?.title ?? 'No Title'}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -110,7 +110,7 @@ export const IndividualModuleScreen = ({ route }) => {
                   <Text className="text-[#F0F2F4] text-center text-sm font-semibold">
                     Next Topic ({Number(moduleData[activeModule].id) + 1}/
                     {moduleData.length}
-                    ): {moduleData[activeModule + 1].title}
+                    ): {moduleData[activeModule + 1]?.title ?? 'No Title'}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -120,7 +120,7 @@ export const IndividualModuleScreen = ({ route }) => {
                   <Text className="text-[#F0F2F4] text-center text-sm font-semibold">
                     Previous Topic ({Number(moduleData[activeModule].id) - 1}/
                     {moduleData.length}
-                    ): {moduleData[activeModule - 1].title}
+                    ): {moduleData[activeModule - 1]?.title ?? 'No Title'}
                   </Text>
                 </TouchableOpacity>
               </View>
