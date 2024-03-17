@@ -95,7 +95,7 @@ export const BottomDrawer = ({ isOpen, handleNextQuestion, question }) => {
     bottom: 0, // Positioned at the bottom
     left: 0,
     right: 0,
-    height: 228, // Drawer height
+    // Drawer height
     justifyContent: 'start', // Center content vertically
     alignItems: 'center', // Center content horizontally
     borderTopLeftRadius: 28,
@@ -128,7 +128,12 @@ export const BottomDrawer = ({ isOpen, handleNextQuestion, question }) => {
                 <Text className="text-black text-lg font-normal mt-4 w-[900px]">
                   {question?.info ?? 'NO INFO COMING FROM DB'}
                 </Text>
-                <TouchableOpacity onPress={handleNextQuestion}>
+                <TouchableOpacity
+                  style={{
+                    marginBottom: 12,
+                  }}
+                  onPress={handleNextQuestion}
+                >
                   <Text className="bg-[#9E53DA] text-white text-sm font-semibold mt-10 py-3 w-[262px] rounded-md text-center">
                     Continue
                   </Text>
@@ -146,7 +151,12 @@ export const BottomDrawer = ({ isOpen, handleNextQuestion, question }) => {
                   You can always correct your answers at the end of the
                   assessment.
                 </Text>
-                <TouchableOpacity onPress={handleNextQuestion}>
+                <TouchableOpacity
+                  style={{
+                    marginBottom: 12,
+                  }}
+                  onPress={handleNextQuestion}
+                >
                   <Text className="bg-[#9E53DA] text-white text-sm font-semibold mt-10 py-3 w-[262px] rounded-md text-center">
                     Continue
                   </Text>
