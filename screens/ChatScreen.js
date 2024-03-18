@@ -8,13 +8,16 @@ import {
   onSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { httpsCallable } from 'firebase/functions';
-
+import { useNavigation } from '@react-navigation/native';
 import { db, functions } from '../firebaseConfig';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export function ChatScreen() {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const navigate = useNavigation();
   useEffect(() => {
     const messagesCollection = collection(db, 'chats');
     const q = query(messagesCollection, orderBy('createdAt', 'desc'));
@@ -71,11 +74,24 @@ export function ChatScreen() {
   }, []);
 
   return (
-    <GiftedChat
-      isTyping={isTyping}
-      messages={messages}
-      onSend={(messages) => onSend(messages)}
-      user={{ _id: 2, name: 'User 2' }}
-    />
+    <>
+      <View className="flex-row justify-between items-center w-full p-4 bg-white">
+        <Text className="text-[#3A4355] text-3xl font-semibold">Chat</Text>
+        <View className="flex-row">
+          <TouchableOpacity
+            onPress={() => navigate.goBack()}
+            className="h-5 w-5 items-center justify-center"
+          >
+            <MaterialIcons name="cancel" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <GiftedChat
+        isTyping={isTyping}
+        messages={messages}
+        onSend={(messages) => onSend(messages)}
+        user={{ _id: 2, name: 'User 2' }}
+      />
+    </>
   );
 }

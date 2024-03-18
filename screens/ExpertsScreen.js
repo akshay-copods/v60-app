@@ -229,7 +229,7 @@ export const ExpertsScreen = () => {
         </Text>
         <View className="flex-row">
           <TouchableOpacity
-            onPress={() => navigate.navigate('training')}
+            onPress={() => navigate.goBack()}
             className="h-5 w-5 items-center justify-center"
           >
             <MaterialIcons name="cancel" size={20} color="black" />

@@ -99,6 +99,7 @@ function HomeStack() {
         name="Chat"
         component={ChatScreen}
         options={{
+          headerShown: false,
           tabBarStyle: { display: 'none' },
           tabBarButton: () => null,
           tabBarButtonComponent: () => null,
