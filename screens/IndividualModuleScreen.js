@@ -45,7 +45,7 @@ export const IndividualModuleScreen = ({ route }) => {
             <Text className="text-lg font-semibold text-gray-600 mb-8">
               {moduleData[activeModule]?.titleDescription ?? 'No Description'}
             </Text>
-            <Text className="text-base font-normal text-gray-800 leading-relaxed">
+            <Text className="text-xl font-normal text-gray-800 leading-relaxed">
               {moduleData[activeModule].content}
             </Text>
 
