@@ -70,11 +70,19 @@ export const ModuleCard = ({
               ~{estimatedTime} Mins
             </Text>
           </View>
-          {totalTopics?.length > 0 && (
+          {totalTopics && (
             <View className="flex-row ml-4">
               <MaterialIcons name="menu-book" size={20} color="#5F6A80" />
               <Text className="text-sm font-normal text-[#5F6A80] ml-2">
                 {totalTopics} Topics
+              </Text>
+            </View>
+          )}
+          {status === 'COMPLETED' && (
+            <View className="flex-row ml-4">
+              <MaterialIcons name="access-alarm" size={20} color="#5F6A80" />
+              <Text className="text-sm font-normal text-[#5F6A80] ml-2">
+                Completed: 15/02/2024
               </Text>
             </View>
           )}

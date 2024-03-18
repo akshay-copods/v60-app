@@ -220,9 +220,6 @@ export const AssessmentScreen = ({ route }) => {
   };
 
   useEffect(() => {
-    setUserAnswer(
-      assessmentData?.questions?.[activeQuestion]?.userAnswer ?? null
-    );
     updateModuleAssessment(id, assessmentData);
   }, [assessmentData, activeQuestion]);
 
