@@ -114,6 +114,13 @@ export const ModuleCard = ({
             </Button>
           </View>
         )}
+        {status === 'LOCKED' && (
+          <View className="flex-row mt-6">
+            <Text className="text-[#737E93] text-sm font-normal">
+              Unlock by completing Previous Training
+            </Text>
+          </View>
+        )}
       </View>
       {cardType === 'ASSESSMENT' && (
         <View className="flex-row items-center bottom-0 top-0 left-[-67px] rotate-180 z-40 absolute">
