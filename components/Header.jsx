@@ -12,7 +12,12 @@ export const Header = ({ title, trainingTitle }) => {
       <Text className="text-[#3A4355] text-3xl font-semibold ">{title}</Text>
       <View className="flex-row">
         <View className="h-8 w-8 rounded-full border border-[#737E93] items-center justify-center">
-          <MaterialIcons name="phone-in-talk" size={20} color="#737E93" />
+          <MaterialIcons
+            onPress={() => navigation.navigate('Experts')}
+            name="phone-in-talk"
+            size={20}
+            color="#737E93"
+          />
         </View>
         <View className="h-8 w-8 rounded-full border border-[#737E93] items-center justify-center ml-3">
           <Ionicons name="notifications" size={20} color="#737E93" />

@@ -47,7 +47,9 @@ export const QuestionAnswers = ({ question, userAnswer, setUserAnswer }) => {
     <View className="w-full h-full flex-1" style={{ gap: 48 }}>
       <View style={{ gap: 8 }}>
         <Text className="text-sm font-normal">
-          {question?.difficulty ?? 'NO DIFFICULTY COMING FROM DB'}
+          {question?.difficulty.charAt(0).toUpperCase() +
+            question?.difficulty.slice(1).toLowerCase() ??
+            'NO DIFFICULTY COMING FROM DB'}
         </Text>
         <Text className="text-xl font-bold">
           {question?.question ?? 'NO QUESTION COMING FROM DB'}
@@ -311,10 +313,10 @@ export const AssessmentScreen = ({ route }) => {
         <ScrollView className="w-full">
           <View className="w-full items-center">
             <View className="mt-[51px] relative">
-              <View className="flex-row items-center">
+              <View className="flex-row items-center ml-2">
                 <Image
                   source={require('../assets/confetti.gif')}
-                  style={{ width: 206, height: 206 }}
+                  style={{ width: 170, height: 170 }}
                 />
                 <Avatar.Image
                   size={309}
@@ -323,13 +325,13 @@ export const AssessmentScreen = ({ route }) => {
                 <Image
                   source={require('../assets/confetti.gif')}
                   style={{
-                    width: 206,
-                    height: 206,
+                    width: 170,
+                    height: 170,
                     transform: [{ rotate: '270deg' }],
                   }}
                 />
               </View>
-              <View className="px-6 py-3 bg-white border-[#E5E5E5] border-2 rounded-2xl w-[673px] mt-[-48px] ml-[20px]">
+              <View className="px-6 py-3 bg-white border-[#E5E5E5] border-2 rounded-2xl w-[673px] mt-[-48px]">
                 <Text className="text-[#3C3C3C] text-[32px] font-medium text-center">
                   Congratulations,{' '}
                   {userName.charAt(0).toUpperCase() +
@@ -341,17 +343,14 @@ export const AssessmentScreen = ({ route }) => {
                   pro.
                 </Text>
               </View>
-              <View
-                className="flex-row items-center ml-[21px] mt-4"
-                style={{ gap: 17 }}
-              >
+              <View className="flex-row items-center mt-4" style={{ gap: 17 }}>
                 {[
                   {
                     title: 'Time Taken:',
                     titleText: '5:30 min',
                     icon: (
                       <Ionicons
-                        name="alarm"
+                        name="alarm-outline"
                         size={24}
                         color="#737E93"
                         style={{ marginLeft: 20 }}
@@ -375,7 +374,7 @@ export const AssessmentScreen = ({ route }) => {
                     titleText: '1/30',
                     icon: (
                       <MaterialIcons
-                        name="flag"
+                        name="outlined-flag"
                         size={24}
                         color="#737E93"
                         style={{ marginLeft: 20 }}

@@ -22,6 +22,8 @@ export const ModuleCard = ({
       className={`mb-8 w-[499px] bg-white shadow-lg border ${
         cardType === 'TRAINING'
           ? 'border-[#DEDEDE]'
+          : status === 'COMPLETED'
+          ? 'border-[#DEDEDE]'
           : 'border-[#9E53DA] relative'
       }`}
     >
@@ -115,16 +117,24 @@ export const ModuleCard = ({
       </View>
       {cardType === 'ASSESSMENT' && (
         <View className="flex-row items-center bottom-0 top-0 left-[-67px] rotate-180 z-40 absolute">
-          <View className="w-2 h-2 rounded-full bg-[#9E53DA]"></View>
+          <View
+            className={`w-2 h-2 rounded-full ${
+              status === 'COMPLETED' ? 'bg-[#DEDEDE]' : 'bg-[#9E53DA]'
+            }`}
+          ></View>
           <View style={{ height: 2, width: 54 }}>
             <DashedLine
               dashLength={5}
               dashThickness={2}
               dashGap={2}
-              dashColor="#9E53DA"
+              dashColor={status === 'COMPLETED' ? '#DEDEDE' : '#9E53DA'}
             />
           </View>
-          <View className="w-2 h-2 rounded-full bg-[#9E53DA]"></View>
+          <View
+            className={`w-2 h-2 rounded-full ${
+              status === 'COMPLETED' ? 'bg-[#DEDEDE]' : 'bg-[#9E53DA]'
+            }`}
+          ></View>
         </View>
       )}
     </Card>

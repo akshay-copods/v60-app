@@ -80,7 +80,7 @@ const MeetingsCard = ({ busy, name, role, time, image }) => {
           <Image
             className="rounded-xl"
             style={{ width: 104, height: 104 }}
-            source={{ uri: image }}
+            source={image}
           />
         </View>
         <View
@@ -158,9 +158,7 @@ const RequestExpertCard = ({ image, name, role }) => {
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
           }}
-          source={{
-            uri: image,
-          }}
+          source={image}
         />
       </View>
       <View
