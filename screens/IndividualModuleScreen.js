@@ -1,6 +1,8 @@
 import {
   FlatList,
+  Image,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -48,6 +50,13 @@ export const IndividualModuleScreen = ({ route }) => {
             <Text className="text-xl font-normal text-gray-800 leading-relaxed">
               {moduleData[activeModule].content}
             </Text>
+            <Image
+              style={styles.image}
+              source={{
+                uri: moduleData[activeModule].image,
+              }}
+              className="mt-8"
+            />
 
             <View className="mb-4">
               {activeModule === 0 &&
@@ -137,3 +146,12 @@ export const IndividualModuleScreen = ({ route }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    width: '100%',
+    height: 500,
+    objectFit: 'contain',
+  },
+});
