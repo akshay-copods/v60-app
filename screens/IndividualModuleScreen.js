@@ -10,8 +10,9 @@ import {
 import { useAppStore } from '../store';
 import { Header } from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Avatar } from 'react-native-paper';
+import { Video, ResizeMode } from 'expo-av';
 
 export const IndividualModuleScreen = ({ route }) => {
   const { id, trainingTitle } = route.params;
@@ -27,6 +28,7 @@ export const IndividualModuleScreen = ({ route }) => {
     completeModule(id);
     navigation.navigate('Training');
   };
+  const video = useRef(null);
 
   return (
     <View className="items-start flex-1 relative">
@@ -51,13 +53,36 @@ export const IndividualModuleScreen = ({ route }) => {
               {moduleData[activeModule].content}
             </Text>
             {moduleData[activeModule].image && (
-              <Image
-                style={styles.image}
-                source={{
-                  uri: moduleData[activeModule].image,
-                }}
-                className="mt-8"
-              />
+              <View className="mt-8">
+                <Text className="text-xl font-normal text-gray-800 leading-relaxed">
+                  Image for Reference
+                </Text>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: moduleData[activeModule].image,
+                  }}
+                  className="mt-2"
+                />
+              </View>
+            )}
+            {moduleData[activeModule].video && (
+              <View className="mt-8">
+                <Text className="text-xl font-normal text-gray-800 leading-relaxed">
+                  Video for Reference
+                </Text>
+                <Video
+                  ref={video}
+                  style={styles.video}
+                  source={{
+                    uri: moduleData[activeModule].video,
+                  }}
+                  useNativeControls
+                  resizeMode={ResizeMode.COVER}
+                  isLooping
+                  className="mt-2"
+                />
+              </View>
             )}
 
             <View className="mb-4">
@@ -155,5 +180,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 500,
     objectFit: 'contain',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 600,
+    height: 400,
   },
 });
