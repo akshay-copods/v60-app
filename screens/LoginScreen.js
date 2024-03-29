@@ -64,7 +64,7 @@ export function LoginScreen({ f }) {
 
   async function fetchData() {
     setLoading(true);
-    const docRef = doc(db, 'modules', 'G9R9PLU8vRvLcSRSf1lJ');
+    const docRef = doc(db, 'modules', 'jWri7sF0Mjyk3aNKihFj');
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const formattedModules = docSnap.data()?.modules.map((module, i) => {
