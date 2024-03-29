@@ -50,13 +50,15 @@ export const IndividualModuleScreen = ({ route }) => {
             <Text className="text-xl font-normal text-gray-800 leading-relaxed">
               {moduleData[activeModule].content}
             </Text>
-            <Image
-              style={styles.image}
-              source={{
-                uri: moduleData[activeModule].image,
-              }}
-              className="mt-8"
-            />
+            {moduleData[activeModule].image && (
+              <Image
+                style={styles.image}
+                source={{
+                  uri: moduleData[activeModule].image,
+                }}
+                className="mt-8"
+              />
+            )}
 
             <View className="mb-4">
               {activeModule === 0 &&
